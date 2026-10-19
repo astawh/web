@@ -35,6 +35,8 @@ func TestPublicRoutes(t *testing.T) {
 		{"GET", "/assets/site.js", 200, "text/javascript", "SuperNavigationMegaMenu"},
 		{"GET", "/assets/logo.svg", 200, "image/svg+xml", "<svg"},
 		{"GET", "/navigation", 200, "text/html", "Alle Themen"},
+		{"GET", "/formulare", 200, "text/html", "Alle Formulare"},
+		{"GET", "/suche?q=Formulare", 200, "text/html", "href=\"/formulare\""},
 		{"GET", "/suche?q=Semesterticket", 200, "text/html", "1 Ergebnis"},
 		{"GET", "/suche?q=unbekannteswort", 200, "text/html", "Keine passenden Themen"},
 		{"GET", "/suche?q=%3Cscript%3E", 200, "text/html", "&lt;script&gt;"},

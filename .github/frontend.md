@@ -14,6 +14,14 @@ arrow SVGs from the GOV.UK action-link component (covered by the vendored
 components licence). The shortcuts are Semesterticket, Sportkeller-Anmeldung
 and Beratung. The registration shortcut currently opens the existing AStA PDF.
 
+`/formulare` uses the GOV.UK browse-page structure: a pale-blue (`#d2e2f1`)
+title/summary area with dark text and a homepage breadcrumb, frequently used
+action links followed by a 4px blue divider, and a ruled list of documents
+with descriptions and chevrons. Documents are grouped under Sportkeller and
+Veranstaltungen. Links point to the existing AStA PDFs, including the current
+registration document linked from the fitness page. The catalogue is defined
+in `site/forms.go`; presentation stays in `view/templates/forms.html`.
+
 ## GOV.UK components
 
 The GOV.UK-style header uses the initial `index.html` prototype's 19px desktop

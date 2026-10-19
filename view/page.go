@@ -8,6 +8,8 @@ type Page struct {
 	Navigation                  []NavigationGroup
 	Menu                        []NavigationGroup
 	Results                     []NavigationLink
+	Forms                       []NavigationGroup
+	Featured                    []NavigationLink
 }
 
 type NavigationLink struct{ Title, URL, Description string }

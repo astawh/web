@@ -1,0 +1,31 @@
+{{ define "forms-page" }}
+<div class="asta-browse-header">
+  <div class="govuk-width-container">
+    <nav class="govuk-breadcrumbs asta-browse-header__breadcrumbs" aria-label="Brotkrumennavigation">
+      <ol class="govuk-breadcrumbs__list"><li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/">Startseite</a></li></ol>
+    </nav>
+    <h1 class="govuk-heading-xl">Formulare</h1>
+    <p class="govuk-body-l">Anmeldungen, Anträge und Downloads für Sportkeller und Veranstaltungen.</p>
+  </div>
+</div>
+<div class="govuk-width-container asta-browse">
+  <section class="asta-browse__actions" aria-labelledby="forms-featured">
+    <h2 id="forms-featured" class="govuk-heading-m">Häufig genutzt</h2>
+    <ul class="govuk-list asta-browse__featured">
+      {{ range .Featured }}<li><a class="govuk-link asta-popular__link" href="{{ .URL }}">{{ template "action-icon" }}<span>{{ .Title }}</span></a></li>{{ end }}
+    </ul>
+  </section>
+  <h2 class="govuk-heading-m asta-browse__heading">Alle Formulare</h2>
+  {{ range .Forms }}
+  <section class="asta-browse__group">
+    <h3 class="govuk-heading-m">{{ .Title }}</h3>
+    <ul class="govuk-list asta-browse__cards">
+      {{ range .Links }}<li>
+        <h4 class="govuk-heading-s"><a class="govuk-link asta-browse__card-link" href="{{ .URL }}">{{ .Title }}</a></h4>
+        <p class="govuk-body">{{ .Description }}</p>
+      </li>{{ end }}
+    </ul>
+  </section>
+  {{ end }}
+</div>
+{{ end }}

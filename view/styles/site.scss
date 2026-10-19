@@ -85,6 +85,25 @@ body { margin: 0; }
 }
 
 .asta-results { margin-top: 30px; }
+.asta-browse-header { display: flow-root; background: #d2e2f1; color: #0b0c0c; padding-bottom: 50px; margin-bottom: 60px; }
+.asta-browse-header .govuk-heading-xl, .asta-browse-header .govuk-body-l { color: inherit; }
+.asta-browse-header .govuk-heading-xl { margin-top: 30px; margin-bottom: 30px; }
+.asta-browse-header .govuk-body-l { max-width: 30em; margin-bottom: 10px; line-height: 1.25; }
+.asta-browse-header__breadcrumbs { margin-bottom: 30px; }
+.asta-browse { padding-bottom: 60px; }
+.asta-browse__actions { border-bottom: 4px solid #1d70b8; margin-bottom: 30px; }
+.asta-browse__actions .govuk-heading-m { margin-bottom: 30px; }
+.asta-browse__featured { margin-bottom: 40px; }
+.asta-browse__featured li { margin-bottom: 15px; }
+.asta-browse__featured .asta-action-icon { flex-basis: 35px; width: 35px; height: 35px; }
+.asta-browse__featured .asta-popular__link { gap: 10px; }
+.asta-browse__heading { border-bottom: 1px solid #cecece; padding-bottom: 15px; }
+.asta-browse__group { margin-top: 30px; }
+.asta-browse__cards li { position: relative; border-bottom: 1px solid #cecece; padding: 19px 45px 4px 0; }
+.asta-browse__cards h4 { margin-bottom: 10px; }
+.asta-browse__cards p { margin-bottom: 20px; max-width: 750px; }
+.asta-browse__card-link::before { content: ""; position: absolute; right: 5px; top: 50%; margin-top: 5px; width: 7px; height: 7px; border-top: 3px solid; border-right: 3px solid; transform: rotate(45deg); }
+.asta-browse__card-link::after { content: ""; position: absolute; inset: 0; }
 .asta-results li { margin-bottom: 25px; }
 .asta-results p { margin-top: 5px; }
 .asta-footer__contacts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px; }
@@ -110,6 +129,11 @@ body { margin: 0; }
   .asta-popular { padding: 28px 0; }
   .asta-popular__links { grid-template-columns: 1fr; gap: 24px; }
   .asta-popular__links li { padding-bottom: 0; }
+  .asta-browse-header { padding-bottom: 30px; margin-bottom: 40px; }
+  .asta-browse-header .govuk-body-l { font-size: 21px; line-height: 1.19; }
+  .asta-browse-header__breadcrumbs { margin-bottom: 15px; }
+  .asta-browse__actions { margin-bottom: 20px; }
+  .asta-browse__featured .asta-action-icon { flex-basis: 28px; width: 28px; height: 28px; }
   .asta-main { padding-top: 30px; padding-bottom: 40px; }
   .asta-footer__contacts { grid-template-columns: 1fr; gap: 25px; }
 }
@@ -130,6 +154,7 @@ body { margin: 0; }
   .asta-masthead { background: #fff; color: #000; padding: 20px 0; }
   .asta-masthead__title { font-size: 32pt; }
   .asta-action-icon { display: none; }
+  .asta-browse-header { background: #fff; color: #000; }
   .asta-header__tools, .asta-header__drawer, .asta-header__bar::before,
   .asta-footer__contacts, .asta-footer__build, .asta-search { display: none !important; }
 }

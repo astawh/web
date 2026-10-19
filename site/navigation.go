@@ -18,7 +18,7 @@ func headerMenu() []view.NavigationGroup {
 			{Title: "Team und Vertretung", URL: "https://www.asta-wh.de/team/"},
 			{Title: "Aktuelles", URL: "https://www.asta-wh.de/"},
 			{Title: "Standorte und Kontakt", URL: "https://www.asta-wh.de/kontakt/"},
-			{Title: "Formulare und Downloads", URL: "https://www.asta-wh.de/downloads/formulare/"},
+			{Title: "Formulare und Downloads", URL: "/formulare"},
 		}},
 	}
 }
@@ -37,7 +37,7 @@ func navigation() []view.NavigationGroup {
 			{Title: "Kooperationen", URL: "https://www.asta-wh.de/kooperationen/", Description: "Partner und Vergünstigungen"},
 			{Title: "Schließfächer", URL: "https://www.asta-wh.de/schliessfaecher/", Description: "Schließfächer an deinem Standort"},
 			{Title: "Hochschulgruppen", URL: "https://www.asta-wh.de/hochschulgruppen/", Description: "Gemeinsam aktiv an der Hochschule"},
-			{Title: "Downloads", URL: "https://www.asta-wh.de/downloads/formulare/", Description: "Formulare und Dokumente"},
+			{Title: "Formulare und Downloads", URL: "/formulare", Description: "Anmeldung und Kündigung für den Sportkeller, Veranstaltungsanträge und Checklisten"},
 		}},
 		{Title: "Dein AStA", Links: []view.NavigationLink{
 			{Title: "Team und Sprechzeiten", URL: "https://www.asta-wh.de/team/", Description: "Deine Ansprechpersonen und ihre Sprechzeiten"},

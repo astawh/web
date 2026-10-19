@@ -16,6 +16,7 @@
     <main id="main-content" tabindex="-1">
       {{ if eq .Section "navigation" }}<div class="govuk-width-container asta-main">{{ template "navigation-page" . }}</div>
       {{ else if eq .Section "search" }}<div class="govuk-width-container asta-main">{{ template "search-page" . }}</div>
+      {{ else if eq .Section "forms" }}{{ template "forms-page" . }}
       {{ else }}{{ template "landing" . }}{{ end }}
     </main>
     {{ template "footer" . }}
