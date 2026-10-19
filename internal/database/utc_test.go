@@ -28,6 +28,7 @@ func TestAllTimestampColumnsEnforceUTC(t *testing.T) {
 		`INSERT INTO access_events(actor_id,subject_id,action,created_at) VALUES('u','u','test','` + initial + `')`,
 		`INSERT INTO team_positions(id,organization_unit_id,title,active,created_at,updated_at) VALUES('position','unit','Finanzen',1,'` + initial + `','` + initial + `')`,
 		`INSERT INTO team_assignments(id,position_id,user_id,created_at,updated_at) VALUES('assignment','position','u','` + initial + `','` + initial + `')`,
+		`INSERT INTO events(id,title,description,starts_at,ends_at,created_at,updated_at) VALUES('event','Event','Description','` + initial + `','` + expiry + `','` + initial + `','` + initial + `')`,
 	} {
 		if _, err := db.Exec(statement); err != nil {
 			t.Fatal(err)
@@ -54,7 +55,7 @@ func TestAllTimestampColumnsEnforceUTC(t *testing.T) {
 		t.Fatal(err)
 	}
 	rows.Close()
-	if len(columns) != 20 {
+	if len(columns) != 25 {
 		t.Fatalf("unexpected timestamp inventory: %d", len(columns))
 	}
 	invalid := []any{

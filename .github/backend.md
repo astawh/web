@@ -76,6 +76,10 @@ other grant.
 individual office-hour arrangements. See the [team backend guide](team.md) for
 the schema, publication rules and local-time recurrence semantics.
 
+`model/events.Service` manages event records, timed/all-day scheduling and public
+timelines. See the [events backend guide](events.md) for publication states,
+permissions and calendar semantics.
+
 `model/users.Service`:
 
 - `Bootstrap`: first administrator, only while there are no users.
