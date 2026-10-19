@@ -23,6 +23,27 @@ func headerMenu() []view.NavigationGroup {
 	}
 }
 
+func footerMenu() []view.NavigationGroup {
+	return []view.NavigationGroup{
+		{Title: "Angebote und Informationen", Links: []view.NavigationLink{
+			{Title: "Semesterticket", URL: "https://www.asta-wh.de/semesterticket/"},
+			{Title: "Beratung", URL: "https://www.asta-wh.de/beratung/"},
+			{Title: "Rechtsberatung", URL: "https://www.asta-wh.de/rechtsberatung/"},
+			{Title: "Finanzielle Unterstützung", URL: "https://www.asta-wh.de/asta-darlehen/"},
+			{Title: "Sportkeller", URL: "https://www.asta-wh.de/fitnesskeller/"},
+			{Title: "Shop", URL: "https://www.asta-wh.de/shop/"},
+			{Title: "Skripteportal", URL: "https://skripte.asta-wh.de/"},
+			{Title: "Formulare und Downloads", URL: "/formulare"},
+		}},
+		{Title: "Dein AStA", Links: []view.NavigationLink{
+			{Title: "Team und Sprechzeiten", URL: "https://www.asta-wh.de/team/"},
+			{Title: "Aktuelles", URL: "https://www.asta-wh.de/"},
+			{Title: "Hochschulgruppen", URL: "https://www.asta-wh.de/hochschulgruppen/"},
+			{Title: "Studierendenparlament", URL: "https://www.stupa-wh.de/"},
+		}},
+	}
+}
+
 // Public destinations stay on the existing site until their new SSR pages land.
 func navigation() []view.NavigationGroup {
 	return []view.NavigationGroup{

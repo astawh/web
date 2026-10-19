@@ -66,6 +66,7 @@ func (h *Handler) render(w http.ResponseWriter, page view.Page) {
 	page.BuildRevision = h.services.BuildRevision
 	page.Navigation = navigation()
 	page.Menu = headerMenu()
+	page.Footer = footerMenu()
 	data, err := h.views.Render(page)
 	if err != nil {
 		log.Printf("Render page: %v", err)

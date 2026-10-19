@@ -108,9 +108,9 @@ body { margin: 0; }
 .asta-results p { margin-top: 5px; }
 .asta-footer__contacts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px; }
 .asta-footer__contacts address { font-style: normal; }
-.asta-footer__identity { border-top: 1px solid #b1b4b6; padding-top: 30px; margin-bottom: 30px; }
+.asta-footer__identity { border-top: 1px solid #8eb8dc; padding-top: 30px; margin-bottom: 30px; }
 .asta-footer__brand {
-  display: inline-block; margin-bottom: 20px; line-height: 0;
+  display: inline-block; margin-bottom: 25px; line-height: 0;
   img { display: block; width: 160px; height: 80px; }
   &:focus-visible { outline: 3px solid #ffdd00; outline-offset: 3px; box-shadow: 0 6px #0b0c0c; }
 }
@@ -156,5 +156,6 @@ body { margin: 0; }
   .asta-action-icon { display: none; }
   .asta-browse-header { background: #fff; color: #000; }
   .asta-header__tools, .asta-header__drawer, .asta-header__bar::before,
-  .asta-footer__contacts, .asta-footer__build, .asta-search { display: none !important; }
+  .asta-footer__contacts, .asta-footer__build, .asta-footer .govuk-footer__navigation,
+  .asta-footer .govuk-footer__section-break, .asta-search { display: none !important; }
 }

@@ -7,6 +7,7 @@ type Page struct {
 	Section, Query              string
 	Navigation                  []NavigationGroup
 	Menu                        []NavigationGroup
+	Footer                      []NavigationGroup
 	Results                     []NavigationLink
 	Forms                       []NavigationGroup
 	Featured                    []NavigationLink

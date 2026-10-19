@@ -1,7 +1,19 @@
 {{ define "footer" }}
-<footer class="govuk-footer">
+<footer class="govuk-footer asta-footer">
   <div class="govuk-width-container">
-    <h2 class="govuk-visually-hidden">Kontakt und weitere Informationen</h2>
+    <a class="asta-footer__brand" href="/" aria-label="{{ .SiteName }} – Startseite"><img src="/assets/logo.svg" width="160" height="80" alt="{{ .SiteName }}"></a>
+    <nav class="govuk-footer__navigation" aria-label="Weitere Angebote und Informationen">
+      {{ range $index, $group := .Footer }}
+      <div class="{{ if eq $index 0 }}govuk-grid-column-two-thirds{{ else }}govuk-grid-column-one-third{{ end }}">
+        <h2 class="govuk-footer__heading govuk-heading-m">{{ .Title }}</h2>
+        <ul class="govuk-footer__list{{ if eq $index 0 }} govuk-footer__list--columns-2{{ end }}">
+          {{ range .Links }}<li class="govuk-footer__list-item"><a class="govuk-footer__link" href="{{ .URL }}">{{ .Title }}</a></li>{{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </nav>
+    <hr class="govuk-footer__section-break">
+    <h2 class="govuk-visually-hidden">Standorte und Kontakt</h2>
     <div class="asta-footer__contacts">
       <section aria-labelledby="footer-ge">
         <h3 id="footer-ge" class="govuk-footer__heading govuk-heading-m">Gelsenkirchen</h3>
@@ -19,7 +31,6 @@
       </section>
     </div>
     <div class="asta-footer__identity">
-      <a class="asta-footer__brand" href="/" aria-label="{{ .SiteName }} – Startseite"><img src="/assets/logo.svg" width="160" height="80" alt="{{ .SiteName }}"></a>
       <p class="govuk-body govuk-!-margin-bottom-0">Allgemeiner Studierendenausschuss der Westfälischen Hochschule</p>
     </div>
     <div class="govuk-footer__meta">
