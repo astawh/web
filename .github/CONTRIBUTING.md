@@ -22,7 +22,9 @@ nix develop -c actionlint
 nix flake check
 ```
 
-Format Go with `gofmt`. CI publishes downloadable coverage for each run.
+Format Go with `gofmt`. CI is temporarily disabled: workflow definitions are
+kept in `.github/workflows-disabled/` until explicitly re-enabled. Run the checks
+locally before committing.
 Go's version in `go.mod` must match the Docker builder; Nix and CI derive their
 Go version from `go.mod`.
 
