@@ -1,0 +1,30 @@
+{{ define "team-page" }}
+<div class="govuk-width-container asta-content asta-team">
+  {{ template "content-header" . }}
+  <div class="govuk-inset-text asta-team__notice">Die Sprechzeiten gelten während der Vorlesungszeit. In der vorlesungsfreien Zeit kannst du einen individuellen Termin vereinbaren. Alle Uhrzeiten sind Ortszeit in Deutschland.</div>
+  {{ template "content-contents" . }}
+  {{ range .Team }}
+  <section class="asta-content__section" aria-labelledby="{{ .ID }}">
+    <h2 id="{{ .ID }}" class="govuk-heading-l" tabindex="-1">{{ .Title }}</h2>
+    <dl class="govuk-summary-list asta-team__list">
+      {{ range .Roles }}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">{{ .Title }}</dt>
+        <dd class="govuk-summary-list__value">
+          <ul class="govuk-list asta-team__members">
+            {{ range .Members }}<li class="asta-team__member">
+              <p class="govuk-body asta-team__name">{{ .Name }}</p>
+              <p class="govuk-body asta-team__detail">{{ .Campus }} · Raum {{ .Room }}</p>
+              {{ if .OfficeHours }}<p class="govuk-body asta-team__detail">{{ .OfficeHours }}</p>{{ end }}
+              {{ with .Schedule }}{{ if .URL }}<p class="govuk-body asta-team__detail"><a class="govuk-link" href="{{ .URL }}">{{ .Title }}</a></p>{{ end }}{{ end }}
+            </li>{{ end }}
+          </ul>
+          <a class="govuk-link asta-team__email" href="mailto:{{ .Email }}">{{ .Email }}</a>
+        </dd>
+      </div>
+      {{ end }}
+    </dl>
+  </section>
+  {{ end }}
+</div>
+{{ end }}

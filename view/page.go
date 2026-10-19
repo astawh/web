@@ -15,6 +15,22 @@ type Page struct {
 	Contents                    []NavigationLink
 	Breadcrumbs                 []NavigationLink
 	Topics                      []NavigationLink
+	Team                        []TeamGroup
+}
+
+type TeamGroup struct {
+	ID, Title string
+	Roles     []TeamRole
+}
+
+type TeamRole struct {
+	Title, Email string
+	Members      []TeamMember
+}
+
+type TeamMember struct {
+	Name, Campus, Room, OfficeHours string
+	Schedule                        NavigationLink
 }
 
 type NavigationLink struct{ Title, URL, Description string }

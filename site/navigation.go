@@ -17,7 +17,7 @@ func headerMenu() []view.NavigationGroup {
 		{Title: "Dein AStA", Links: []view.NavigationLink{
 			{Title: "Hochschulpolitik und Gremien", URL: "/hochschulpolitik"},
 			{Title: "So funktioniert der AStA", URL: "/asta/so-funktioniert-der-asta"},
-			{Title: "Team und Vertretung", URL: "https://www.asta-wh.de/team/"},
+			{Title: "Team und Sprechzeiten", URL: "/asta/team"},
 			{Title: "Aktuelles", URL: "https://www.asta-wh.de/"},
 			{Title: "Standorte und Kontakt", URL: "https://www.asta-wh.de/kontakt/"},
 			{Title: "Formulare und Downloads", URL: "/formulare"},
@@ -43,7 +43,7 @@ func footerMenu() []view.NavigationGroup {
 		}},
 		{Title: "Über den AStA", Links: []view.NavigationLink{
 			{Title: "Hochschulpolitik und Gremien", URL: "/hochschulpolitik"},
-			{Title: "Team und Referate", URL: "https://www.asta-wh.de/team/"},
+			{Title: "Team und Referate", URL: "/asta/team"},
 			{Title: "Aktuelles", URL: "https://www.asta-wh.de/"},
 			// Planned destinations for the public information architecture.
 			{Title: "Beschlüsse und Protokolle", URL: "/asta/protokolle"},
@@ -74,7 +74,7 @@ func navigation() []view.NavigationGroup {
 		{Title: "Dein AStA", Links: []view.NavigationLink{
 			{Title: "Hochschulpolitik und Gremien", URL: "/hochschulpolitik", Description: "Studentische Selbstverwaltung, AStA und Studierendenparlament"},
 			{Title: "So funktioniert der AStA", URL: "/asta/so-funktioniert-der-asta", Description: "Aufgaben, Vorstand und Referate, Studierendenparlament, Finanzierung und Mitmachen"},
-			{Title: "Team und Sprechzeiten", URL: "https://www.asta-wh.de/team/", Description: "Deine Ansprechpersonen und ihre Sprechzeiten"},
+			{Title: "Team und Sprechzeiten", URL: "/asta/team", Description: "Deine Ansprechpersonen und ihre Sprechzeiten"},
 			{Title: "Kontakt", URL: "https://www.asta-wh.de/kontakt/", Description: "So erreichst du uns"},
 			{Title: "Gelsenkirchen", URL: "https://www.asta-wh.de/category/gelsenkirchen/", Description: "Aktuelles von deinem Standort"},
 			{Title: "Recklinghausen", URL: "https://www.asta-wh.de/category/recklinghausen/", Description: "Aktuelles von deinem Standort"},

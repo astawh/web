@@ -98,6 +98,21 @@ body { margin: 0; }
 .asta-content__section { margin-bottom: 60px; }
 .asta-content__section .govuk-heading-l { margin-bottom: 20px; scroll-margin-top: 20px; }
 .asta-content__section .govuk-heading-m { margin-top: 30px; margin-bottom: 20px; }
+.asta-team__notice { margin-top: 30px; margin-bottom: 30px; }
+.asta-team__list .govuk-summary-list__key { width: 35%; padding-right: 30px; overflow-wrap: anywhere; }
+.asta-team__list .govuk-summary-list__value { width: 65%; }
+.asta-team__list .govuk-summary-list__key, .asta-team__list .govuk-summary-list__value { padding-top: 20px; padding-bottom: 20px; }
+.asta-team__members { margin-bottom: 15px; }
+.asta-team__members .asta-team__member { margin-bottom: 20px; }
+.asta-team__members .asta-team__member:last-child { margin-bottom: 0; }
+.asta-team__name { font-weight: bold; margin-bottom: 5px; }
+.asta-team__detail { margin-bottom: 0; }
+.asta-team__email { overflow-wrap: anywhere; }
+@media (max-width: 40.0525em) {
+  .asta-team__list .govuk-summary-list__key, .asta-team__list .govuk-summary-list__value { width: auto; padding: 0; }
+  .asta-team__list .govuk-summary-list__key { margin-bottom: 15px; }
+  .asta-team__list .govuk-summary-list__row { padding-top: 20px; padding-bottom: 20px; }
+}
 .asta-browse-header { display: flow-root; background: #d2e2f1; color: #0b0c0c; padding-bottom: 50px; margin-bottom: 60px; }
 .asta-browse-header .govuk-heading-xl, .asta-browse-header .govuk-body-l { color: inherit; }
 .asta-browse-header .govuk-heading-xl { margin-top: 30px; margin-bottom: 30px; }

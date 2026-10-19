@@ -16,6 +16,7 @@ func (h *Handler) routes() http.Handler {
 	mux.HandleFunc("GET /suche", h.search)
 	mux.HandleFunc("GET /formulare", h.forms)
 	mux.HandleFunc("GET /asta/so-funktioniert-der-asta", h.aboutAsta)
+	mux.HandleFunc("GET /asta/team", h.team)
 	mux.HandleFunc("GET /hochschulpolitik", h.politics)
 	mux.HandleFunc("GET /hochschulpolitik/gremien", h.committees)
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, _ *http.Request) {

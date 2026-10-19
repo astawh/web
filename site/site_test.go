@@ -36,6 +36,8 @@ func TestPublicRoutes(t *testing.T) {
 		{"GET", "/navigation", 200, "text/html", "Alle Themen"},
 		{"GET", "/formulare", 200, "text/html", "Alle Formulare"},
 		{"GET", "/asta/so-funktioniert-der-asta", 200, "text/html", "Auf dieser Seite"},
+		{"GET", "/asta/team", 200, "text/html", "Anil Özgür Ölmez"},
+		{"GET", "/suche?q=Team", 200, "text/html", "href=\"/asta/team\""},
 		{"GET", "/hochschulpolitik", 200, "text/html", "Studentische Selbstverwaltung"},
 		{"GET", "/hochschulpolitik/gremien", 200, "text/html", "Studierendenparlament (StuPa)"},
 		{"GET", "/suche?q=Vorstand", 200, "text/html", "href=\"/asta/so-funktioniert-der-asta\""},

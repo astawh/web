@@ -36,6 +36,18 @@ at `/hochschulpolitik` and `/hochschulpolitik/gremien` use the browse layout
 in `browse.html`, with linked topics and descriptions. The content page keeps
 its existing URL; the breadcrumb expresses the editorial hierarchy.
 
+`/asta/team` uses the role-first summary-list structure of `fsi-wh.de/team`.
+Sections cover Vorstand, Referate and Verwaltung. Each responsibility has its
+members' names, campus, room and individual office hours, followed by one shared
+email address. On mobile, the responsibility stacks above its members. Weekly,
+appointment-only, Teams and external shop schedules retain their distinctions;
+all times are local German time. The page uses no portraits or biographies.
+
+`site/team.go` holds the initial editorial snapshot of the 18 people published
+at `https://www.asta-wh.de/team/` on 2026-10-19. It does not seed database users
+or permissions; connecting the directory to managed team records is a separate
+integration. `view/templates/team.html` renders presentation-only team data.
+
 Editorial sources checked on 2026-10-19:
 
 - [AStA team and office hours](https://www.asta-wh.de/team/): responsibilities,
