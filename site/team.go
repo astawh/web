@@ -59,11 +59,8 @@ func (h *Handler) team(w http.ResponseWriter, r *http.Request) {
 	}
 	page := view.Page{
 		Title: "Team und Sprechzeiten", Section: "team", Breadcrumbs: committeeBreadcrumbs(),
-		Introduction: "Deine Ansprechpersonen im AStA: Zuständigkeiten, Kontakt und Sprechzeiten.",
+		Introduction: "Die Sprechzeiten gelten während der Vorlesungszeit. In der vorlesungsfreien Zeit kannst du einen individuellen Termin vereinbaren. Alle Uhrzeiten sind Ortszeit in Deutschland.",
 		Team:         groups,
-	}
-	for _, group := range groups {
-		page.Contents = append(page.Contents, view.NavigationLink{Title: group.Title, URL: "#" + group.ID})
 	}
 	h.render(w, page)
 }

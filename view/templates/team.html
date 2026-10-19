@@ -1,8 +1,6 @@
 {{ define "team-page" }}
 <div class="govuk-width-container asta-content asta-team">
   {{ template "content-header" . }}
-  <div class="govuk-inset-text asta-team__notice">Die Sprechzeiten gelten während der Vorlesungszeit. In der vorlesungsfreien Zeit kannst du einen individuellen Termin vereinbaren. Alle Uhrzeiten sind Ortszeit in Deutschland.</div>
-  {{ template "content-contents" . }}
   {{ range .Team }}
   <section class="asta-content__section" aria-labelledby="{{ .ID }}">
     <h2 id="{{ .ID }}" class="govuk-heading-l" tabindex="-1">{{ .Title }}</h2>
