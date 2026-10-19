@@ -20,8 +20,9 @@ This project follows the server-rendered Go structure of `fsiwh/web`.
 The application serves a minimal homepage, `/healthz` and embedded assets under
 `/assets/`. `model/organization` supplies the site identity. `model/access` and
 `model/users` implement private staff access, organizational responsibilities,
-invitations and sessions. SQLite migrations are embedded in `internal/database`;
-TLS SMTP delivery is provided by `internal/email`.
+invitations and sessions. `model/team` owns organizational positions, user
+assignments and office-hour arrangements. SQLite migrations are embedded in
+`internal/database`; TLS SMTP delivery is provided by `internal/email`.
 
 There is no REST API. SSR/HTMX controllers and administration screens will be
 added later. See the [backend guide](backend.md) for the implemented model and
@@ -29,7 +30,7 @@ initialization commands.
 
 As editable content is introduced, add domain packages such as `model/posts`,
 `model/events` and `model/services`. Keep private user accounts separate from
-organizational positions if position management is introduced; public profiles
+organizational positions; public profiles
 are not required. Persistence uses parameterized `database/sql` queries in domain
 services and versioned Goose migrations. Add disk/S3 implementations
 under `storage` when uploaded files are introduced.

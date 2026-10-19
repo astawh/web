@@ -25,6 +25,10 @@ invitations
   └── mail_outbox
 
 access_events
+
+organization_units ── team_positions ── team_assignments ── office_hours
+                                             │
+                                           users
 ```
 
 `users` contains private staff account information. Organizational areas use
@@ -67,6 +71,10 @@ other grant.
 - `Users`, `UserGrants`, `SetUserAccess`: staff administration.
 - `CreateForm`, `Forms`, `SetFormResponsibilities`: form responsibility metadata.
 - `CanAccessForm`: authorization for future application operations.
+
+`model/team.Service` manages organizational positions, user assignments and
+individual office-hour arrangements. See the [team backend guide](team.md) for
+the schema, publication rules and local-time recurrence semantics.
 
 `model/users.Service`:
 
