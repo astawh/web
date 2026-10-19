@@ -8,17 +8,20 @@ go run .
 ```
 
 The application listens on `127.0.0.1:8090`. Use `-addr` to change it.
-`SITE_NAME` overrides the default public name, `AStA WH`.
+SQLite is migrated automatically at startup; use `-database` to change its path.
+`SITE_NAME` overrides the default public name, `AStA WH`. See the
+[backend guide](backend.md) for account initialization and mail configuration.
 
 Templates and static assets are embedded in the executable. Restart `go run .`
-after changing them. The initial application uses Go's standard library only.
+after changing them. Data changes belong in the model services; HTTP controllers
+will use server-rendered HTML and HTMX, not a REST API.
 
 ## Checks
 
 ```sh
 nix develop -c go test -race ./...
 nix develop -c go vet ./...
-nix develop -c actionlint
+nix develop -c actionlint .github/workflows-disabled/ci.yaml .github/workflows-disabled/lint.yaml
 nix flake check
 ```
 

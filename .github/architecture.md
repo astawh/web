@@ -18,13 +18,20 @@ This project follows the server-rendered Go structure of `fsiwh/web`.
 ## Initial scope
 
 The application serves a minimal homepage, `/healthz` and embedded assets under
-`/assets/`. `model/organization` supplies the site identity. No external Go modules
-or database are required at this stage.
+`/assets/`. `model/organization` supplies the site identity. `model/access` and
+`model/users` implement private staff access, organizational responsibilities,
+invitations and sessions. SQLite migrations are embedded in `internal/database`;
+TLS SMTP delivery is provided by `internal/email`.
+
+There is no REST API. SSR/HTMX controllers and administration screens will be
+added later. See the [backend guide](backend.md) for the implemented model and
+initialization commands.
 
 As editable content is introduced, add domain packages such as `model/posts`,
-`model/events`, `model/services` and `model/members`. Follow the reference project's
-`internal/database` approach for SQLite connection setup, embedded migrations and
-generated SQLC queries when persistence is needed. Add disk/S3 implementations
+`model/events` and `model/services`. Keep private user accounts separate from
+organizational positions if position management is introduced; public profiles
+are not required. Persistence uses parameterized `database/sql` queries in domain
+services and versioned Goose migrations. Add disk/S3 implementations
 under `storage` when uploaded files are introduced.
 
 The production frontend should build pinned GOV.UK Frontend assets through Nix,
