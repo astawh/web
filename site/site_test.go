@@ -35,6 +35,8 @@ func TestPublicRoutes(t *testing.T) {
 		{"GET", "/assets/logo.svg", 200, "image/svg+xml", "<svg"},
 		{"GET", "/navigation", 200, "text/html", "Alle Themen"},
 		{"GET", "/formulare", 200, "text/html", "Alle Formulare"},
+		{"GET", "/asta/so-funktioniert-der-asta", 200, "text/html", "Auf dieser Seite"},
+		{"GET", "/suche?q=Vorstand", 200, "text/html", "href=\"/asta/so-funktioniert-der-asta\""},
 		{"GET", "/suche?q=Formulare", 200, "text/html", "href=\"/formulare\""},
 		{"GET", "/suche?q=Semesterticket", 200, "text/html", "1 Ergebnis"},
 		{"GET", "/suche?q=unbekannteswort", 200, "text/html", "Keine passenden Themen"},

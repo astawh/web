@@ -1,0 +1,21 @@
+{{ define "content-header" }}
+<nav class="govuk-breadcrumbs" aria-label="Brotkrumennavigation">
+  <ol class="govuk-breadcrumbs__list"><li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/">Startseite</a></li></ol>
+</nav>
+<header class="asta-content__header">
+  <div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">{{ .Title }}</h1>
+    <p class="govuk-body-l asta-content__lead">{{ .Introduction }}</p>
+  </div></div>
+</header>
+<hr class="govuk-section-break govuk-section-break--visible asta-content__rule">
+{{ end }}
+
+{{ define "content-contents" }}
+<nav class="asta-contents" aria-labelledby="contents-heading">
+  <h2 id="contents-heading" class="asta-contents__title">Auf dieser Seite</h2>
+  <ol class="asta-contents__list">
+    {{ range .Contents }}<li><a class="govuk-link govuk-link--no-underline" href="{{ .URL }}">{{ .Title }}</a></li>{{ end }}
+  </ol>
+</nav>
+{{ end }}

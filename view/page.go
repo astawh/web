@@ -11,6 +11,8 @@ type Page struct {
 	Results                     []NavigationLink
 	Forms                       []NavigationGroup
 	Featured                    []NavigationLink
+	Introduction                string
+	Contents                    []NavigationLink
 }
 
 type NavigationLink struct{ Title, URL, Description string }

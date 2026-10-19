@@ -22,12 +22,32 @@ Veranstaltungen. Links point to the existing AStA PDFs, including the current
 registration document linked from the fitness page. The catalogue is defined
 in `site/forms.go`; presentation stays in `view/templates/forms.html`.
 
+`/asta/so-funktioniert-der-asta` establishes the long-form content-page pattern
+from GOV.UK's “How government works”: white background, homepage breadcrumb,
+48px desktop title, 24px lead paragraph, full-width divider, dashed contents
+links and a two-thirds-width reading column. Sections use 36px desktop headings
+and 60px spacing (40px mobile). `content.html` contains the shared header and
+contents partials; `asta.html` contains the editorial body. The route and
+presentation data live in `site/content.go`. No JavaScript is required to read
+the page or navigate its contents.
+
+Editorial sources checked on 2026-10-19:
+
+- [AStA team and office hours](https://www.asta-wh.de/team/): responsibilities,
+  departments, finance contact, office hours and how to join.
+- [About the StuPa](https://www.stupa-wh.de/das-stupa): elections, oversight,
+  budget and fundamental decisions.
+- [StuPa vacancies](https://www.stupa-wh.de/ausschreibungen): recruitment route;
+  dated vacancy details and deadlines are not copied into the content page.
+- [WH semester contribution](https://www.w-hs.de/rueckmeldung/): funding context;
+  changing amounts remain on the university website.
+
 The shared footer follows GOV.UK's footer navigation: a
 two-thirds/two-column “Angebote und Informationen” group and a one-third
 “Über den AStA” group. Curated destinations live in `site/navigation.go`.
 The official footer component supplies the pale background, blue top border,
 underlined headings, responsive columns and separator. Twelve service/topic
-links help students find support and practical offers; six institutional links
+ links help students find support and practical offers; institutional links
 cover people, news, decisions, transparency, representation and participation.
 Support/legal links sit below one divider, with the AStA
 logo at the bottom right. The footer contains no campus address blocks.
