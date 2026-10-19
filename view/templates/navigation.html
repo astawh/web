@@ -1,7 +1,7 @@
 {{ define "navigation-page" }}
 <h1 class="govuk-heading-xl">Alle Themen</h1>
 {{ range .Navigation }}
-<section class="govuk-!-margin-bottom-8">
+<section class="govuk-!-margin-bottom-8"{{ if eq .Title "Dein AStA" }} id="ueber-den-asta"{{ end }}>
   <h2 class="govuk-heading-l">{{ .Title }}</h2>
   <ul class="govuk-list asta-results">
     {{ range .Links }}<li><h3 class="govuk-heading-s govuk-!-margin-bottom-1"><a class="govuk-link" href="{{ .URL }}">{{ .Title }}</a></h3><p class="govuk-body">{{ .Description }}</p></li>{{ end }}
