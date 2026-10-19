@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 
 	"github.com/pressly/goose/v3"
+	goosedb "github.com/pressly/goose/v3/database"
 	_ "modernc.org/sqlite"
 )
 
@@ -56,10 +57,29 @@ func migrate(ctx context.Context, db *sql.DB) error {
 	if err != nil {
 		return err
 	}
-	provider, err := goose.NewProvider(goose.DialectSQLite3, db, files)
+	store, err := goosedb.NewStore(goose.DialectSQLite3, goose.DefaultTablename)
+	if err != nil {
+		return err
+	}
+	provider, err := goose.NewProvider(goose.DialectCustom, db, files, goose.WithStore(utcVersionStore{store}))
 	if err != nil {
 		return err
 	}
 	_, err = provider.Up(ctx)
+	return err
+}
+
+// Goose's default SQLite metadata uses a space-separated timestamp without Z.
+// Keep its normal store behavior, but enforce the same UTC contract here too.
+type utcVersionStore struct{ goosedb.Store }
+
+func (s utcVersionStore) CreateVersionTable(ctx context.Context, db goosedb.DBTxConn) error {
+	_, err := db.ExecContext(ctx, `CREATE TABLE goose_db_version (
+ id INTEGER PRIMARY KEY AUTOINCREMENT,
+ version_id INTEGER NOT NULL,
+ is_applied INTEGER NOT NULL,
+ tstamp TIMESTAMP NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ','now'))
+ CHECK(length(tstamp)=20 AND strftime('%Y-%m-%dT%H:%M:%SZ',tstamp,'+0 seconds') IS tstamp)
+ )`)
 	return err
 }

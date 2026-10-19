@@ -6,6 +6,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/astawh/web/internal/datetime"
 	"github.com/astawh/web/internal/secret"
 	"github.com/astawh/web/model/access"
 )
@@ -19,14 +20,14 @@ type InvitationInput struct {
 }
 
 type Invitation struct {
-	ID         string `json:"id"`
-	Name       string `json:"name"`
-	Email      string `json:"email"`
-	InvitedBy  string `json:"invited_by"`
-	CreatedAt  int64  `json:"created_at"`
-	ExpiresAt  int64  `json:"expires_at"`
-	AcceptedAt *int64 `json:"accepted_at"`
-	RevokedAt  *int64 `json:"revoked_at"`
+	ID         string  `json:"id"`
+	Name       string  `json:"name"`
+	Email      string  `json:"email"`
+	InvitedBy  string  `json:"invited_by"`
+	CreatedAt  string  `json:"created_at"`
+	ExpiresAt  string  `json:"expires_at"`
+	AcceptedAt *string `json:"accepted_at"`
+	RevokedAt  *string `json:"revoked_at"`
 }
 
 func (s *Service) Invite(ctx context.Context, actor string, input InvitationInput) (string, error) {
@@ -45,7 +46,7 @@ func (s *Service) Invite(ctx context.Context, actor string, input InvitationInpu
 	if err := access.ValidateGrants(ctx, tx, input.Grants); err != nil {
 		return "", err
 	}
-	now := time.Now().Unix()
+	now := datetime.Now()
 	var exists bool
 	if err := tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM users WHERE email=?)`, email).Scan(&exists); err != nil {
 		return "", err
@@ -67,7 +68,7 @@ func (s *Service) Invite(ctx context.Context, actor string, input InvitationInpu
 		return "", access.ErrConflict
 	}
 	id, token := secret.New(), secret.New()
-	if _, err := tx.ExecContext(ctx, `INSERT INTO invitations(id,name,email,token_hash,invited_by,created_at,expires_at) VALUES(?,?,?,?,?,?,?)`, id, name, email, secret.Hash(token), actor, now, now+int64(InvitationLifetime/time.Second)); err != nil {
+	if _, err := tx.ExecContext(ctx, `INSERT INTO invitations(id,name,email,token_hash,invited_by,created_at,expires_at) VALUES(?,?,?,?,?,?,?)`, id, name, email, secret.Hash(token), actor, now, datetime.Format(time.Now().Add(InvitationLifetime))); err != nil {
 		return "", err
 	}
 	for _, r := range input.Grants.Roles {
@@ -89,7 +90,7 @@ func (s *Service) Invite(ctx context.Context, actor string, input InvitationInpu
 	return id, tx.Commit()
 }
 
-func queueInvitation(ctx context.Context, tx *sql.Tx, id, email, token string, now int64) error {
+func queueInvitation(ctx context.Context, tx *sql.Tx, id, email, token string, now string) error {
 	_, err := tx.ExecContext(ctx, `INSERT INTO mail_outbox(id,invitation_id,recipient,token,created_at,next_attempt_at)
  VALUES(?,?,?,?,?,?) ON CONFLICT(invitation_id) DO UPDATE SET token=excluded.token,
  attempts=0,next_attempt_at=excluded.next_attempt_at,lease_token=NULL,lease_until=NULL`, secret.New(), id, email, token, now, now)
@@ -125,7 +126,7 @@ func (s *Service) RevokeInvitation(ctx context.Context, actor, id string) error 
 	if err := access.Require(ctx, tx, actor, access.ManageUsers); err != nil {
 		return err
 	}
-	r, err := tx.ExecContext(ctx, `UPDATE invitations SET revoked_at=? WHERE id=? AND accepted_at IS NULL AND revoked_at IS NULL`, time.Now().Unix(), id)
+	r, err := tx.ExecContext(ctx, `UPDATE invitations SET revoked_at=? WHERE id=? AND accepted_at IS NULL AND revoked_at IS NULL`, datetime.Now(), id)
 	if err != nil {
 		return err
 	}
@@ -162,9 +163,9 @@ func (s *Service) ResendInvitation(ctx context.Context, actor, id string) error 
 	if err != nil {
 		return err
 	}
-	token, now := secret.New(), time.Now().Unix()
+	token, now := secret.New(), datetime.Now()
 	// The administrator resending the invitation takes responsibility for its grants.
-	if _, err := tx.ExecContext(ctx, `UPDATE invitations SET token_hash=?,expires_at=?,invited_by=? WHERE id=?`, secret.Hash(token), now+int64(InvitationLifetime/time.Second), actor, id); err != nil {
+	if _, err := tx.ExecContext(ctx, `UPDATE invitations SET token_hash=?,expires_at=?,invited_by=? WHERE id=?`, secret.Hash(token), datetime.Format(time.Now().Add(InvitationLifetime)), actor, id); err != nil {
 		return err
 	}
 	if err := queueInvitation(ctx, tx, id, email, token, now); err != nil {
@@ -182,7 +183,7 @@ func (s *Service) AcceptInvitation(ctx context.Context, token, password string) 
 	}
 	// Reject unavailable tokens before spending time hashing a password.
 	var available bool
-	if err := s.db.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM invitations WHERE token_hash=? AND accepted_at IS NULL AND revoked_at IS NULL AND expires_at>?)`, secret.Hash(token), time.Now().Unix()).Scan(&available); err != nil {
+	if err := s.db.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM invitations WHERE token_hash=? AND accepted_at IS NULL AND revoked_at IS NULL AND expires_at>?)`, secret.Hash(token), datetime.Now()).Scan(&available); err != nil {
 		return User{}, err
 	}
 	if !available {
@@ -197,7 +198,7 @@ func (s *Service) AcceptInvitation(ctx context.Context, token, password string) 
 		return User{}, err
 	}
 	defer tx.Rollback()
-	now := time.Now().Unix()
+	now := datetime.Now()
 	u := User{ID: secret.New()}
 	var id, actor string
 	err = tx.QueryRowContext(ctx, `SELECT id,name,email,invited_by FROM invitations WHERE token_hash=? AND accepted_at IS NULL AND revoked_at IS NULL AND expires_at>?`, secret.Hash(token), now).Scan(&id, &u.Name, &u.Email, &actor)

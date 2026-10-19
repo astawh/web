@@ -8,6 +8,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/astawh/web/internal/datetime"
 	"github.com/astawh/web/internal/secret"
 	"github.com/astawh/web/model/access"
 	"golang.org/x/crypto/bcrypt"
@@ -47,9 +48,9 @@ func (s *Service) Login(ctx context.Context, email, password string) (User, stri
 	if err != nil || !valid || disabled {
 		return User{}, "", ErrCredentials
 	}
-	token, now := secret.New(), time.Now().Unix()
+	token, now := secret.New(), datetime.Now()
 	r, err := s.db.ExecContext(ctx, `INSERT INTO sessions(token_hash,user_id,created_at,expires_at)
- SELECT ?,id,?,? FROM users WHERE id=? AND disabled_at IS NULL AND password_hash=?`, secret.Hash(token), now, now+int64(SessionLifetime/time.Second), u.ID, hash)
+ SELECT ?,id,?,? FROM users WHERE id=? AND disabled_at IS NULL AND password_hash=?`, secret.Hash(token), now, datetime.Format(time.Now().Add(SessionLifetime)), u.ID, hash)
 	if err != nil {
 		return User{}, "", err
 	}
@@ -69,7 +70,7 @@ func (s *Service) Authenticate(ctx context.Context, token string) (User, error) 
 	}
 	var u User
 	err := s.db.QueryRowContext(ctx, `SELECT u.id,u.name,u.email FROM users u JOIN sessions s ON s.user_id=u.id
- WHERE s.token_hash=? AND s.expires_at>? AND u.disabled_at IS NULL`, secret.Hash(token), time.Now().Unix()).Scan(&u.ID, &u.Name, &u.Email)
+ WHERE s.token_hash=? AND s.expires_at>? AND u.disabled_at IS NULL`, secret.Hash(token), datetime.Now()).Scan(&u.ID, &u.Name, &u.Email)
 	if errors.Is(err, sql.ErrNoRows) {
 		return User{}, ErrCredentials
 	}
@@ -87,7 +88,7 @@ func (s *Service) Cleanup(ctx context.Context) error {
 		return err
 	}
 	defer tx.Rollback()
-	now := time.Now().Unix()
+	now := datetime.Now()
 	if _, err := tx.ExecContext(ctx, `DELETE FROM sessions WHERE expires_at<=?`, now); err != nil {
 		return err
 	}

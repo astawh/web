@@ -18,7 +18,7 @@ func TestMigrationsAndConstraints(t *testing.T) {
 	if _, err := db.Exec(`INSERT INTO user_roles VALUES('missing','administrator')`); err == nil {
 		t.Fatal("foreign key not enforced")
 	}
-	if _, err := db.Exec(`INSERT INTO organization_units VALUES('x','Finance','invalid',0)`); err == nil {
+	if _, err := db.Exec(`INSERT INTO organization_units VALUES('x','Finance','invalid','2026-10-19T00:00:00Z')`); err == nil {
 		t.Fatal("invalid unit kind accepted")
 	}
 	var count int

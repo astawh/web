@@ -48,7 +48,7 @@ func TestBootstrapLoginAndSessionRevocation(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if _, err := db.Exec(`UPDATE sessions SET expires_at=1,created_at=0`); err != nil {
+	if _, err := db.Exec(`UPDATE sessions SET expires_at='1970-01-01T00:00:01Z',created_at='1970-01-01T00:00:00Z'`); err != nil {
 		t.Fatal(err)
 	}
 	if _, err := s.Authenticate(ctx, token); !errors.Is(err, users.ErrCredentials) {
@@ -58,7 +58,7 @@ func TestBootstrapLoginAndSessionRevocation(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if _, err := db.Exec(`UPDATE users SET disabled_at=1 WHERE id=?`, u.ID); err != nil {
+	if _, err := db.Exec(`UPDATE users SET disabled_at='2026-01-01T00:00:00Z' WHERE id=?`, u.ID); err != nil {
 		t.Fatal(err)
 	}
 	if _, err := s.Authenticate(ctx, token); !errors.Is(err, users.ErrCredentials) {

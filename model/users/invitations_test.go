@@ -8,6 +8,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/astawh/web/internal/datetime"
 	"github.com/astawh/web/internal/secret"
 	"github.com/astawh/web/internal/testdb"
 	"github.com/astawh/web/model/access"
@@ -104,7 +105,7 @@ func TestInvitationRevocationExpiryAndResend(t *testing.T) {
 		t.Fatal(err)
 	}
 	token = pendingToken(t, db, id)
-	if _, err := db.Exec(`UPDATE invitations SET created_at=?,expires_at=? WHERE id=?`, time.Now().Add(-2*time.Hour).Unix(), time.Now().Add(-time.Hour).Unix(), id); err != nil {
+	if _, err := db.Exec(`UPDATE invitations SET created_at=?,expires_at=? WHERE id=?`, datetime.Format(time.Now().Add(-2*time.Hour)), datetime.Format(time.Now().Add(-time.Hour)), id); err != nil {
 		t.Fatal(err)
 	}
 	if _, err := s.AcceptInvitation(ctx, token, "a sufficiently long password"); !errors.Is(err, users.ErrInvitation) {
@@ -185,7 +186,7 @@ func TestInvitationMailRetriesAndRechecksEligibility(t *testing.T) {
 	if len(mail.sent) != 0 {
 		t.Fatal("retry backoff ignored")
 	}
-	if _, err := db.Exec(`UPDATE mail_outbox SET next_attempt_at=0`); err != nil {
+	if _, err := db.Exec(`UPDATE mail_outbox SET next_attempt_at='1970-01-01T00:00:00Z'`); err != nil {
 		t.Fatal(err)
 	}
 	if err := s.DeliverInvitations(ctx, mail); err != nil {
@@ -197,7 +198,7 @@ func TestInvitationMailRetriesAndRechecksEligibility(t *testing.T) {
 	if err := s.ResendInvitation(ctx, "admin", id); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := db.Exec(`UPDATE users SET disabled_at=1 WHERE id='admin'`); err != nil {
+	if _, err := db.Exec(`UPDATE users SET disabled_at='2026-01-01T00:00:00Z' WHERE id='admin'`); err != nil {
 		t.Fatal(err)
 	}
 	if err := s.DeliverInvitations(ctx, mail); err != nil {

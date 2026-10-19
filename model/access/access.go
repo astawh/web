@@ -6,8 +6,8 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"github.com/astawh/web/internal/datetime"
 	"strings"
-	"time"
 
 	"github.com/astawh/web/internal/secret"
 )
@@ -94,7 +94,7 @@ func ValidateGrants(ctx context.Context, tx *sql.Tx, g Grants) error {
 }
 
 func Audit(ctx context.Context, tx *sql.Tx, actor, subject, action string) error {
-	_, err := tx.ExecContext(ctx, `INSERT INTO access_events(actor_id,subject_id,action,created_at) VALUES(NULLIF(?,''),?,?,?)`, actor, subject, action, time.Now().Unix())
+	_, err := tx.ExecContext(ctx, `INSERT INTO access_events(actor_id,subject_id,action,created_at) VALUES(NULLIF(?,''),?,?,?)`, actor, subject, action, datetime.Now())
 	return err
 }
 
@@ -112,7 +112,7 @@ func (s *Service) CreateUnit(ctx context.Context, actor, name, kind string) (str
 		return "", err
 	}
 	id := secret.New()
-	if _, err := tx.ExecContext(ctx, `INSERT INTO organization_units VALUES(?,?,?,?)`, id, name, kind, time.Now().Unix()); err != nil {
+	if _, err := tx.ExecContext(ctx, `INSERT INTO organization_units VALUES(?,?,?,?)`, id, name, kind, datetime.Now()); err != nil {
 		return "", err
 	}
 	if err := Audit(ctx, tx, actor, id, "unit.created"); err != nil {
@@ -243,9 +243,9 @@ func (s *Service) SetUserAccess(ctx context.Context, actor, user string, grants 
 	}
 	var disabledAt any
 	if disabled {
-		disabledAt = time.Now().Unix()
+		disabledAt = datetime.Now()
 	}
-	if _, err := tx.ExecContext(ctx, `UPDATE users SET disabled_at=?,updated_at=? WHERE id=?`, disabledAt, time.Now().Unix(), user); err != nil {
+	if _, err := tx.ExecContext(ctx, `UPDATE users SET disabled_at=?,updated_at=? WHERE id=?`, disabledAt, datetime.Now(), user); err != nil {
 		return err
 	}
 	var admins int

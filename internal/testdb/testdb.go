@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/astawh/web/internal/database"
+	"github.com/astawh/web/internal/datetime"
 )
 
 func Open(t *testing.T) *sql.DB {
@@ -22,7 +23,8 @@ func Open(t *testing.T) *sql.DB {
 
 func User(t *testing.T, db *sql.DB, id, role string) {
 	t.Helper()
-	if _, err := db.Exec(`INSERT INTO users(id,name,email,password_hash,verified_at,created_at,updated_at) VALUES(?,?,?,'not-a-login-hash',0,0,0)`, id, id, id+"@example.org"); err != nil {
+	now := datetime.Now()
+	if _, err := db.Exec(`INSERT INTO users(id,name,email,password_hash,verified_at,created_at,updated_at) VALUES(?,?,?,'not-a-login-hash',?,?,?)`, id, id, id+"@example.org", now, now, now); err != nil {
 		t.Fatal(err)
 	}
 	if role != "" {

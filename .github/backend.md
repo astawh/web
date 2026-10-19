@@ -33,7 +33,10 @@ Memberships grant `view` or `manage` access within an explicit area.
 
 Every database is migrated at startup using Goose. Foreign keys are enabled,
 tables are STRICT, and changes to grants or invitation acceptance are committed
-transactionally. Timestamps are UTC Unix seconds. New database files use mode
+transactionally. All stored timestamps are fixed-precision UTC RFC3339 text:
+`YYYY-MM-DDTHH:MM:SSZ`. SQL constraints reject epochs, offsets, local timestamps,
+fractional precision and invalid calendar dates. Nullable timestamps use SQL NULL.
+Goose's migration metadata uses the same enforced UTC format. New database files use mode
 0600 and their parent directory is created with mode 0700.
 
 ### Functional roles

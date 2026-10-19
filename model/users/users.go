@@ -7,9 +7,9 @@ import (
 	"errors"
 	"net/mail"
 	"strings"
-	"time"
 	"unicode/utf8"
 
+	"github.com/astawh/web/internal/datetime"
 	"github.com/astawh/web/internal/secret"
 	"github.com/astawh/web/model/access"
 	"golang.org/x/crypto/bcrypt"
@@ -70,7 +70,7 @@ func (s *Service) Bootstrap(ctx context.Context, name, email, password string) (
 	if count != 0 {
 		return User{}, access.ErrConflict
 	}
-	now := time.Now().Unix()
+	now := datetime.Now()
 	u := User{ID: secret.New(), Name: name, Email: email}
 	if _, err := tx.ExecContext(ctx, `INSERT INTO users(id,name,email,password_hash,verified_at,created_at,updated_at) VALUES(?,?,?,?,?,?,?)`, u.ID, name, email, hash, now, now, now); err != nil {
 		return User{}, err
