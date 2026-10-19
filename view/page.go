@@ -12,6 +12,7 @@ type Page struct {
 	Forms                       []NavigationGroup
 	Featured                    []NavigationLink
 	Introduction                string
+	IntroductionNote            string
 	Contents                    []NavigationLink
 	Breadcrumbs                 []NavigationLink
 	Topics                      []NavigationLink

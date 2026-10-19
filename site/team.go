@@ -59,8 +59,9 @@ func (h *Handler) team(w http.ResponseWriter, r *http.Request) {
 	}
 	page := view.Page{
 		Title: "Team und Sprechzeiten", Section: "team", Breadcrumbs: committeeBreadcrumbs(),
-		Introduction: "Die Sprechzeiten gelten während der Vorlesungszeit. In der vorlesungsfreien Zeit kannst du einen individuellen Termin vereinbaren. Alle Uhrzeiten sind Ortszeit in Deutschland.",
-		Team:         groups,
+		Introduction:     "Du hast finanzielle Probleme, soziale Schwierigkeiten oder einfach allgemeine Fragen? Komm gerne vorbei, gemeinsam finden wir eine Lösung! 💙",
+		IntroductionNote: "Unsere Sprechzeiten finden innerhalb der Vorlesungszeit statt. In der vorlesungsfreien Zeit könnt ihr aber gerne einen individuellen Termin mit uns vereinbaren.",
+		Team:             groups,
 	}
 	h.render(w, page)
 }
