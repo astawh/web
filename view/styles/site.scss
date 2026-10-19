@@ -115,6 +115,7 @@ body { margin: 0; }
   &:focus-visible { outline: 3px solid #ffdd00; outline-offset: 3px; box-shadow: 0 6px #0b0c0c; }
 }
 .asta-footer__build { font-size: 14px; }
+.asta-footer__signature { margin-left: auto; text-align: right; }
 
 @media (max-width: 40.0525em) {
   .asta-header { --asta-header-height: 88px; --asta-logo-width: 136px; --asta-logo-height: 68px; }

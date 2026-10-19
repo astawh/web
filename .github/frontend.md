@@ -22,12 +22,13 @@ Veranstaltungen. Links point to the existing AStA PDFs, including the current
 registration document linked from the fitness page. The catalogue is defined
 in `site/forms.go`; presentation stays in `view/templates/forms.html`.
 
-The shared footer follows GOV.UK's footer navigation: an AStA logo above a
+The shared footer follows GOV.UK's footer navigation: a
 two-thirds/two-column “Angebote und Informationen” group and a one-third
 “Dein AStA” group. Curated destinations live in `site/navigation.go`.
 The official footer component supplies the pale background, blue top border,
 underlined headings, responsive columns and separator. Campus contact details
 follow the navigation; organisation identity and legal links finish the footer.
+The AStA logo sits at the bottom right with the build version beneath it.
 
 ## GOV.UK components
 

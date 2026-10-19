@@ -1,7 +1,6 @@
 {{ define "footer" }}
 <footer class="govuk-footer asta-footer">
   <div class="govuk-width-container">
-    <a class="asta-footer__brand" href="/" aria-label="{{ .SiteName }} – Startseite"><img src="/assets/logo.svg" width="160" height="80" alt="{{ .SiteName }}"></a>
     <nav class="govuk-footer__navigation" aria-label="Weitere Angebote und Informationen">
       {{ range $index, $group := .Footer }}
       <div class="{{ if eq $index 0 }}govuk-grid-column-two-thirds{{ else }}govuk-grid-column-one-third{{ end }}">
@@ -42,7 +41,10 @@
         </ul>
         <p class="govuk-footer__licence-description">Für Studierende in Gelsenkirchen, Recklinghausen und Bocholt.</p>
       </div>
-      <div class="govuk-footer__meta-item asta-footer__build"><a class="govuk-footer__link" href="https://github.com/astawh/web">Version {{ .BuildVersion }}{{ with .ShortRevision }} ({{ . }}){{ end }}</a></div>
+      <div class="govuk-footer__meta-item asta-footer__signature">
+        <a class="asta-footer__brand" href="/" aria-label="{{ .SiteName }} – Startseite"><img src="/assets/logo.svg" width="160" height="80" alt="{{ .SiteName }}"></a>
+        <div class="asta-footer__build"><a class="govuk-footer__link" href="https://github.com/astawh/web">Version {{ .BuildVersion }}{{ with .ShortRevision }} ({{ . }}){{ end }}</a></div>
+      </div>
     </div>
   </div>
 </footer>
