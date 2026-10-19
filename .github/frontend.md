@@ -9,7 +9,7 @@ The landing content is intentionally empty while the shared layout is developed.
 ## GOV.UK components
 
 The GOV.UK-style header reproduces the initial `index.html` prototype: 60px
-desktop / 55px mobile bar, 30px / 27px wordmark, 19px desktop menu links,
+desktop / 55px mobile bar, 19px desktop menu links,
 underlined group headings and the compact two-column services grid. Local SCSS
 preserves those measured dimensions. The blue header and full-width pale-blue
 panels use AStA branding, German labels and AStA destinations. Menu/search
@@ -25,7 +25,10 @@ Arial/system sans-serif. Upstream licences are included in `view/assets`.
 
 `view/assets/logo.svg` is the original blue AStA WH logo from
 `https://www.asta-wh.de/wp-content/uploads/2016/08/Logo_blau.svg`, preserved as
-a local asset. The header retains the compact prototype wordmark.
+a local asset. The header uses it at 88×44px (80×40px on mobile), displayed
+white against the blue bar. Keyboard focus and printing display it in black.
+The footer uses the original blue logo at 160×80px. Both logos link to the
+homepage and have accessible names.
 
 ## Editing assets
 

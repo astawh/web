@@ -14,14 +14,13 @@ body { margin: 0; }
 }
 .asta-header__nav { position: relative; display: flex; flex-wrap: wrap; align-items: center; min-height: 60px; }
 .asta-brand {
-  color: #fff; font-size: 30px; font-weight: 700; line-height: normal;
-  text-decoration: none; letter-spacing: -1px; padding: 10px 0;
+  display: block; color: #fff; line-height: 0; text-decoration: none; padding: 8px 0;
   &:link, &:visited { color: #fff; }
-  &:hover { text-decoration: underline; text-decoration-thickness: 3px; }
+  &:hover { box-shadow: 0 3px #fff; }
   &:focus { color: #0b0c0c; background: #ffdd00; outline: 3px solid #ffdd00; outline-offset: 0; box-shadow: 0 4px #0b0c0c; }
-  &:focus .asta-brand__dot { color: #0b0c0c; }
+  &:focus .asta-brand__logo { filter: brightness(0); }
 }
-.asta-brand__dot { color: #b4d6f0; }
+.asta-brand__logo { display: block; width: 88px; height: 44px; filter: brightness(0) invert(1); }
 .asta-header__tools { display: flex; align-items: stretch; align-self: stretch; min-height: 60px; margin-left: auto; }
 .asta-header__item { display: flex; align-items: stretch; }
 .asta-header__button {
@@ -66,12 +65,18 @@ body { margin: 0; }
 .asta-footer__contacts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px; }
 .asta-footer__contacts address { font-style: normal; }
 .asta-footer__identity { border-top: 1px solid #b1b4b6; padding-top: 30px; margin-bottom: 30px; }
+.asta-footer__brand {
+  display: inline-block; margin-bottom: 20px; line-height: 0;
+  img { display: block; width: 160px; height: 80px; }
+  &:focus-visible { outline: 3px solid #ffdd00; outline-offset: 3px; box-shadow: 0 6px #0b0c0c; }
+}
 .asta-footer__build { font-size: 14px; }
 
 @media (max-width: 40.0525em) {
   .asta-header__nav, .asta-header__tools { min-height: 55px; }
   .asta-header__bar::before { top: 55px; }
-  .asta-brand { font-size: 27px; }
+  .asta-brand { padding: 7.5px 0; }
+  .asta-brand__logo { width: 80px; height: 40px; }
   .asta-header__button { padding: 15px 12px; }
   .asta-menu { grid-template-columns: 1fr; gap: 40px; }
   .asta-main { padding-top: 30px; padding-bottom: 40px; }
@@ -89,7 +94,7 @@ body { margin: 0; }
   .asta-main { padding-top: 0; }
   .asta-header { background: #fff; color: #000; border-bottom: 2pt solid; }
   .asta-brand, .asta-brand:link, .asta-brand:visited { color: #000; }
-  .asta-brand__dot { color: inherit; }
+  .asta-brand__logo { filter: brightness(0); }
   .asta-header__tools, .asta-header__drawer, .asta-header__bar::before,
   .asta-footer__contacts, .asta-footer__build, .asta-search { display: none !important; }
 }
