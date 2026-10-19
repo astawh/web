@@ -17,7 +17,7 @@ func TestPublicRoutes(t *testing.T) {
 	db := testdb.Open(t)
 	handler, err := site.New(site.Services{
 		Organization: organization.New("AStA <WH>"),
-		Access:       access.New(db), Users: users.New(db), Origin: "http://localhost",
+		Access:       access.New(db), Users: users.New(db),
 		BuildVersion: "v0.1.0", BuildRevision: "1234567890",
 	})
 	if err != nil {

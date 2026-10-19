@@ -25,7 +25,7 @@ func newApplication(ctx context.Context, cfg config.Config) (*application, error
 	}
 	handler, err := site.New(site.Services{
 		Organization: organization.New(cfg.SiteName),
-		Access:       access.New(db), Users: users.New(db), Origin: cfg.PublicURL,
+		Access:       access.New(db), Users: users.New(db),
 		BuildVersion:  Version,
 		BuildRevision: Revision,
 	})
