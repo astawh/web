@@ -46,12 +46,13 @@ func run(ctx context.Context, args []string) error {
 		fmt.Println(Version)
 		return nil
 	}
-	handler, err := newApplication(config.New())
+	app, err := newApplication(ctx, config.New())
 	if err != nil {
 		return err
 	}
+	defer app.db.Close()
 	server := &http.Server{
-		Addr: *addr, Handler: handler, ReadHeaderTimeout: 5 * time.Second,
+		Addr: *addr, Handler: app.handler, ReadHeaderTimeout: 5 * time.Second,
 		ReadTimeout: 30 * time.Second, WriteTimeout: 30 * time.Second, IdleTimeout: 120 * time.Second,
 	}
 	done := make(chan error, 1)

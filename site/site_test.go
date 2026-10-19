@@ -6,13 +6,18 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/astawh/web/internal/testdb"
+	"github.com/astawh/web/model/access"
 	"github.com/astawh/web/model/organization"
+	"github.com/astawh/web/model/users"
 	"github.com/astawh/web/site"
 )
 
 func TestPublicRoutes(t *testing.T) {
+	db := testdb.Open(t)
 	handler, err := site.New(site.Services{
 		Organization: organization.New("AStA <WH>"),
+		Access:       access.New(db), Users: users.New(db), Origin: "http://localhost",
 		BuildVersion: "v0.1.0", BuildRevision: "1234567890",
 	})
 	if err != nil {

@@ -9,10 +9,15 @@ import (
 	"time"
 
 	"github.com/astawh/web/internal/secret"
+	"github.com/astawh/web/model/access"
 	"golang.org/x/crypto/bcrypt"
 )
 
 const SessionLifetime = 12 * time.Hour
+
+func (s *Service) Grants(ctx context.Context, user string) (access.Grants, error) {
+	return access.ReadGrants(ctx, s.db, user)
+}
 
 var dummyPasswordHash = sync.OnceValue(func() []byte {
 	hash, err := bcrypt.GenerateFromPassword([]byte(secret.New()), 12)
