@@ -8,6 +8,12 @@ The landing page has a blue introduction/search area directly beneath the logo
 row, following the public GOV.UK homepage. Its heading and always-visible search
 form share the header's colour and content alignment.
 
+Below it, “Häufig gesucht” follows GOV.UK's popular-links section: three desktop
+columns, a stacked mobile list, bold 19px links and decorative 40px circular
+arrow SVGs from the GOV.UK action-link component (covered by the vendored
+components licence). The shortcuts are Semesterticket, Sportkeller-Anmeldung
+and Beratung. The registration shortcut currently opens the existing AStA PDF.
+
 ## GOV.UK components
 
 The GOV.UK-style header uses the initial `index.html` prototype's 19px desktop
