@@ -1,0 +1,42 @@
+{{ define "search-icon" }}<svg class="asta-search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="2"/><path d="m15 15 7 7" stroke="currentColor" stroke-width="2"/></svg>{{ end }}
+{{ define "header" }}
+<header class="asta-header">
+  <div class="asta-header__bar">
+    <nav class="govuk-width-container asta-header__nav" aria-labelledby="super-navigation-menu-heading" data-module="super-navigation-mega-menu">
+      <a class="asta-brand" href="/" aria-label="{{ .SiteName }} – Startseite">{{ if eq .SiteName "AStA WH" }}AStA<span class="asta-brand__dot">·</span>WH{{ else }}{{ .SiteName }}{{ end }}</a>
+      <h2 id="super-navigation-menu-heading" class="govuk-visually-hidden">Hauptnavigation</h2>
+      <div class="asta-header__tools">
+        <div class="asta-header__item">
+          <a class="asta-header__button" href="/navigation">Menü</a>
+          <button id="super-navigation-menu-toggle" class="asta-header__button" type="button" aria-controls="super-navigation-menu" aria-expanded="false" aria-label="Menü öffnen" data-text-for-show="Menü öffnen" data-text-for-hide="Menü schließen" data-toggle-desktop-group="top" data-toggle-mobile-group="top" hidden><svg class="asta-header__chevron" width="12" height="8" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="m1 1 5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Menü</button>
+        </div>
+        <div class="asta-header__item">
+          <button id="super-search-menu-toggle" class="asta-header__button asta-header__search-toggle" type="button" aria-controls="super-search-menu" aria-expanded="false" aria-label="Suche öffnen" data-text-for-show="Suche öffnen" data-text-for-hide="Suche schließen" data-toggle-desktop-group="top" data-toggle-mobile-group="top" hidden><span class="govuk-visually-hidden">{{ .SiteName }} durchsuchen</span>{{ template "search-icon" }}<span aria-hidden="true" class="asta-header__close">&times;</span></button>
+          <a class="asta-header__button asta-header__search-toggle gem-c-layout-super-navigation-header__search-item-link" href="/suche"><span class="govuk-visually-hidden">{{ .SiteName }} durchsuchen</span>{{ template "search-icon" }}</a>
+        </div>
+      </div>
+      <div id="super-navigation-menu" class="asta-header__drawer" hidden>
+        <div class="asta-menu">
+          {{ range $index, $group := .Menu }}
+          <div>
+            <h3 class="govuk-heading-m asta-menu__heading">{{ .Title }}</h3>
+            <ul class="govuk-list {{ if eq $index 0 }}asta-menu__links{{ else }}asta-menu__about{{ end }}">
+              {{ range .Links }}<li><a class="govuk-link" href="{{ .URL }}">{{ .Title }}</a></li>{{ end }}
+            </ul>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      <div id="super-search-menu" class="asta-header__drawer" hidden>
+        <form class="asta-search" action="/suche" method="get" role="search" aria-label="Website durchsuchen">
+          <label class="govuk-label govuk-label--m asta-search__label" for="header-search">{{ .SiteName }} durchsuchen</label>
+          <div class="asta-search__controls">
+            <input class="govuk-input asta-search__input" id="header-search" name="q" type="search" enterkeyhint="search" maxlength="200" value="{{ .Query }}">
+            <button class="asta-search__submit" type="submit"><span class="govuk-visually-hidden">Suchen</span>{{ template "search-icon" }}</button>
+          </div>
+        </form>
+      </div>
+    </nav>
+  </div>
+</header>
+{{ end }}

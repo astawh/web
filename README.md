@@ -25,4 +25,7 @@ and the [architecture guide](.github/architecture.md) for the repository layout.
 The [backend guide](.github/backend.md) describes invitation-only staff access,
 roles, organizational memberships, database setup and first-administrator creation.
 
+The [frontend guide](.github/frontend.md) covers the GOV.UK-based public layout,
+navigation and reproducible browser assets.
+
 SPDX-License-Identifier: MPL-2.0

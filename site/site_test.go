@@ -30,7 +30,15 @@ func TestPublicRoutes(t *testing.T) {
 	}{
 		{"GET", "/", 200, "text/html", "AStA &lt;WH&gt;"},
 		{"GET", "/healthz", 200, "text/plain", "ok\n"},
-		{"GET", "/assets/site.css", 200, "text/css", ".container"},
+		{"GET", "/assets/site.css", 200, "text/css", ".asta-page"},
+		{"GET", "/assets/govuk.css", 200, "text/css", ".govuk-footer"},
+		{"GET", "/assets/site.js", 200, "text/javascript", "SuperNavigationMegaMenu"},
+		{"GET", "/assets/logo.svg", 200, "image/svg+xml", "<svg"},
+		{"GET", "/navigation", 200, "text/html", "Alle Themen"},
+		{"GET", "/suche?q=Semesterticket", 200, "text/html", "1 Ergebnis"},
+		{"GET", "/suche?q=unbekannteswort", 200, "text/html", "Keine passenden Themen"},
+		{"GET", "/suche?q=%3Cscript%3E", 200, "text/html", "&lt;script&gt;"},
+		{"GET", "/suche?q=" + strings.Repeat("x", 201), 400, "text/plain", "höchstens 200"},
 		{"GET", "/missing", 404, "text/plain", "404"},
 		{"POST", "/", 405, "text/plain", "Method Not Allowed"},
 	} {

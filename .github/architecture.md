@@ -25,8 +25,9 @@ assignments and office-hour arrangements. SQLite migrations are embedded in
 `internal/database`; TLS SMTP delivery is provided by `internal/email`.
 `model/events` manages event content, publication and scheduling.
 
-There is no REST API. SSR/HTMX controllers and administration screens will be
-added later. See the [backend guide](backend.md) for the implemented model and
+There is no REST API. The public shell, topic index and topic search are
+server-rendered. Staff controllers and administration screens will be added
+later. See the [backend guide](backend.md) for the implemented model and
 initialization commands.
 
 As further editable content is introduced, add domain packages such as
@@ -36,6 +37,7 @@ are not required. Persistence uses parameterized `database/sql` queries in domai
 services and versioned Goose migrations. Add disk/S3 implementations
 under `storage` when uploaded files are introduced.
 
-The production frontend should build pinned GOV.UK Frontend assets through Nix,
-with handwritten styles under `view/styles` and browser code under `view`.
-The bootstrap stylesheet is only for the minimal application shell.
+The public layout uses pinned GOV.UK Frontend and GOV.UK Publishing Components
+assets built through Nix, with handwritten styles under `view/styles` and browser
+code under `view`. Generated assets are committed for plain Go/Docker builds and
+checked for reproducibility. See the [frontend guide](frontend.md).

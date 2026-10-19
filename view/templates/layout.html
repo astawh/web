@@ -1,17 +1,23 @@
 {{ define "layout" }}<!doctype html>
-<html lang="de">
+<html lang="de" class="govuk-template">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1d70b8">
+    <meta name="description" content="Angebote, Beratung und Informationen des AStA der Westfälischen Hochschule in Gelsenkirchen, Recklinghausen und Bocholt.">
     <title>{{ .Title }} – {{ .SiteName }}</title>
+    <link rel="stylesheet" href="/assets/govuk.css">
     <link rel="stylesheet" href="/assets/site.css">
+    <script type="module" src="/assets/site.js"></script>
   </head>
-  <body>
-    <a class="skip-link" href="#main-content">Zum Hauptinhalt</a>
-    <header><div class="container"><a href="/">{{ .SiteName }}</a></div></header>
-    <main class="container" id="main-content" tabindex="-1">{{ template "home" . }}</main>
-    <footer class="container">
-      <a href="https://github.com/astawh/web">Version {{ .BuildVersion }}{{ with .ShortRevision }} ({{ . }}){{ end }}</a>
-    </footer>
+  <body class="govuk-template__body asta-page">
+    <a class="govuk-skip-link" href="#main-content" data-module="govuk-skip-link">Zum Hauptinhalt</a>
+    {{ template "header" . }}
+    <main id="main-content" tabindex="-1">
+      {{ if eq .Section "navigation" }}<div class="govuk-width-container asta-main">{{ template "navigation-page" . }}</div>
+      {{ else if eq .Section "search" }}<div class="govuk-width-container asta-main">{{ template "search-page" . }}</div>
+      {{ else }}{{ template "landing" . }}{{ end }}
+    </main>
+    {{ template "footer" . }}
   </body>
 </html>{{ end }}

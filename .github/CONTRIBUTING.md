@@ -13,7 +13,10 @@ SQLite is migrated automatically at startup; use `-database` to change its path.
 [backend guide](backend.md) for account initialization and mail configuration.
 
 Templates and static assets are embedded in the executable. Restart `go run .`
-after changing them. Data changes belong in the model services; HTTP controllers
+after changing them. Edit styles under `view/styles` and browser code in
+`view/site.js`, then run `nix run .#vendor` and commit the generated assets.
+See the [frontend guide](frontend.md) for the shared layout and asset pipeline.
+Data changes belong in the model services; HTTP controllers
 will use server-rendered HTML and HTMX, not a REST API.
 
 ## Checks

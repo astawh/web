@@ -1,0 +1,5 @@
+// Use the official components, with the system font for AStA branding.
+$govuk-font-family: Arial, sans-serif;
+$govuk-include-default-font-face: false;
+
+@import "govuk/index";

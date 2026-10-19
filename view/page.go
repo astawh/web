@@ -4,6 +4,16 @@ package view
 type Page struct {
 	Title, SiteName             string
 	BuildVersion, BuildRevision string
+	Section, Query              string
+	Navigation                  []NavigationGroup
+	Menu                        []NavigationGroup
+	Results                     []NavigationLink
+}
+
+type NavigationLink struct{ Title, URL, Description string }
+type NavigationGroup struct {
+	Title string
+	Links []NavigationLink
 }
 
 func (p Page) ShortRevision() string {

@@ -1,0 +1,27 @@
+{{ define "navigation-page" }}
+<h1 class="govuk-heading-xl">Alle Themen</h1>
+{{ range .Navigation }}
+<section class="govuk-!-margin-bottom-8">
+  <h2 class="govuk-heading-l">{{ .Title }}</h2>
+  <ul class="govuk-list asta-results">
+    {{ range .Links }}<li><h3 class="govuk-heading-s govuk-!-margin-bottom-1"><a class="govuk-link" href="{{ .URL }}">{{ .Title }}</a></h3><p class="govuk-body">{{ .Description }}</p></li>{{ end }}
+  </ul>
+</section>
+{{ end }}
+{{ end }}
+
+{{ define "search-page" }}
+<h1 class="govuk-heading-xl">Suche</h1>
+<form class="asta-search" action="/suche" method="get" role="search" aria-label="Angebote und Informationen durchsuchen">
+  <label class="govuk-label" for="page-search">Angebote und Informationen durchsuchen</label>
+  <div class="asta-search__controls">
+    <input id="page-search" class="govuk-input asta-search__input" name="q" type="search" maxlength="200" value="{{ .Query }}">
+    <button class="asta-search__submit" type="submit"><span class="govuk-visually-hidden">Suchen</span>{{ template "search-icon" }}</button>
+  </div>
+</form>
+{{ if .Query }}
+  <h2 class="govuk-heading-m govuk-!-margin-top-8">{{ len .Results }} {{ if eq (len .Results) 1 }}Ergebnis{{ else }}Ergebnisse{{ end }} für „{{ .Query }}“</h2>
+  {{ if .Results }}<ul class="govuk-list asta-results">{{ range .Results }}<li><h3 class="govuk-heading-s govuk-!-margin-bottom-1"><a class="govuk-link" href="{{ .URL }}">{{ .Title }}</a></h3><p class="govuk-body">{{ .Description }}</p></li>{{ end }}</ul>
+  {{ else }}<p class="govuk-body">Keine passenden Themen gefunden. Schau in die <a class="govuk-link" href="/navigation">Übersicht aller Themen</a> oder <a class="govuk-link" href="https://www.asta-wh.de/kontakt/">kontaktiere uns</a>.</p>{{ end }}
+{{ else }}<p class="govuk-body govuk-!-margin-top-6">Suche nach einem Angebot oder nutze die <a class="govuk-link" href="/navigation">Übersicht aller Themen</a>.</p>{{ end }}
+{{ end }}
