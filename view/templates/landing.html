@@ -1,5 +1,14 @@
 {{ define "landing" }}
-<div class="govuk-width-container asta-main">
-  <h1 class="govuk-visually-hidden">{{ .SiteName }}</h1>
+<div class="asta-masthead">
+  <div class="govuk-width-container">
+    <h1 class="govuk-heading-xl asta-masthead__title">Hilfe, Angebote und Informationen für dein Studium</h1>
+    <form class="asta-search asta-search--masthead" action="/suche" method="get" role="search" aria-label="Angebote und Informationen durchsuchen">
+      <label class="govuk-label govuk-label--s" for="landing-search">Suche</label>
+      <div class="asta-search__controls">
+        <input id="landing-search" class="govuk-input asta-search__input" name="q" type="search" enterkeyhint="search" maxlength="200">
+        <button class="asta-search__submit" type="submit"><span class="govuk-visually-hidden">{{ .SiteName }} durchsuchen</span>{{ template "search-icon" }}</button>
+      </div>
+    </form>
+  </div>
 </div>
 {{ end }}

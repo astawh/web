@@ -4,14 +4,17 @@ The shared SSR shell consists of `view/templates/layout.html`, `header.html`
 and `footer.html`. `landing.html` provides the initial public entry page.
 `navigation.html` contains the non-JavaScript topic index and search results.
 Page data in `view` remains independent of domain services.
-The landing content is intentionally empty while the shared layout is developed.
+The landing page has a blue introduction/search area directly beneath the logo
+row, following the public GOV.UK homepage. Its heading and always-visible search
+form share the header's colour and content alignment.
 
 ## GOV.UK components
 
-The GOV.UK-style header reproduces the initial `index.html` prototype: 60px
-desktop / 55px mobile bar, 19px desktop menu links,
-underlined group headings and the compact two-column services grid. Local SCSS
-preserves those measured dimensions. The blue header and full-width pale-blue
+The GOV.UK-style header uses the initial `index.html` prototype's 19px desktop
+menu links, underlined group headings and compact two-column services grid.
+The masthead is 112px high on desktop and 88px on mobile to accommodate the
+2:1 AStA logo. Desktop controls use 19px type; mobile controls use 16px.
+The blue header and full-width pale-blue
 panels use AStA branding, German labels and AStA destinations. Menu/search
 toggling and keyboard interaction use GOV.UK's super-navigation JavaScript.
 
@@ -25,10 +28,19 @@ Arial/system sans-serif. Upstream licences are included in `view/assets`.
 
 `view/assets/logo.svg` is the original blue AStA WH logo from
 `https://www.asta-wh.de/wp-content/uploads/2016/08/Logo_blau.svg`, preserved as
-a local asset. The header uses it at 88×44px (80×40px on mobile), displayed
+a local asset. The header uses it at 176×88px (136×68px on mobile), displayed
 white against the blue bar. Keyboard focus and printing display it in black.
 The footer uses the original blue logo at 160×80px. Both logos link to the
 homepage and have accessible names.
+
+Sizing follows the artwork's aspect ratio: the
+[GOV.UK header](https://design-system.service.gov.uk/components/header/) uses a
+162×30px horizontal wordmark, while the original AStA artwork is 200×100 and
+includes a small caption. The
+[generic header guidance](https://design-system.service.gov.uk/components/generic-header/)
+supports using an organisation's own logo. A taller masthead keeps the AStA
+artwork legible; its grid keeps the menu/search controls aligned and both
+dropdowns full-width beneath it.
 
 ## Editing assets
 

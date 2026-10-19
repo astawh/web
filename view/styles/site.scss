@@ -5,28 +5,33 @@ body { margin: 0; }
 .asta-page > main { flex: 1; width: 100%; }
 .asta-main { padding-top: 40px; padding-bottom: 60px; }
 
-// Match the proportions and typography of the original index.html prototype.
-.asta-header { color: #fff; background: #1d70b8; font-family: Arial, Helvetica, sans-serif; }
+// The 2:1 AStA logo needs more height than GOV.UK's horizontal wordmark.
+.asta-header {
+  --asta-header-height: 112px;
+  --asta-logo-width: 176px;
+  --asta-logo-height: 88px;
+  color: #fff; background: #1d70b8; font-family: Arial, Helvetica, sans-serif;
+}
 .asta-header__bar {
   position: relative;
-  &::before { content: ""; position: absolute; top: 60px; bottom: 0; width: 100%; background: #f3f8fb; }
+  &::before { content: ""; position: absolute; top: var(--asta-header-height); bottom: 0; width: 100%; background: #f3f8fb; }
   &:has(.asta-header__drawer:not([hidden])) { border-bottom: 1px solid #b1b4b6; }
 }
-.asta-header__nav { position: relative; display: flex; flex-wrap: wrap; align-items: center; min-height: 60px; }
+.asta-header__nav { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 24px; align-items: center; min-height: var(--asta-header-height); }
 .asta-brand {
-  display: block; color: #fff; line-height: 0; text-decoration: none; padding: 8px 0;
+  display: block; color: #fff; line-height: 0; text-decoration: none; padding: 12px 0;
   &:link, &:visited { color: #fff; }
   &:hover { box-shadow: 0 3px #fff; }
   &:focus { color: #0b0c0c; background: #ffdd00; outline: 3px solid #ffdd00; outline-offset: 0; box-shadow: 0 4px #0b0c0c; }
   &:focus .asta-brand__logo { filter: brightness(0); }
 }
-.asta-brand__logo { display: block; width: 88px; height: 44px; filter: brightness(0) invert(1); }
-.asta-header__tools { display: flex; align-items: stretch; align-self: stretch; min-height: 60px; margin-left: auto; }
+.asta-brand__logo { display: block; width: var(--asta-logo-width); height: var(--asta-logo-height); filter: brightness(0) invert(1); }
+.asta-header__tools { display: flex; justify-self: end; align-items: stretch; align-self: stretch; min-height: var(--asta-header-height); }
 .asta-header__item { display: flex; align-items: stretch; }
 .asta-header__button {
   display: flex; align-items: center; border: 0; border-radius: 0;
-  background: transparent; color: #fff; font: bold 16px Arial, sans-serif;
-  text-decoration: none; cursor: pointer; padding: 15px 20px; margin: 0;
+  position: relative; background: transparent; color: #fff; font: bold 19px Arial, sans-serif;
+  text-decoration: none; cursor: pointer; padding: 20px 24px; margin: 0;
   &:link, &:visited { color: #fff; }
   &:hover { background: #16558c; }
   &[aria-expanded="true"] { background: #f3f8fb; color: #1d70b8; }
@@ -34,14 +39,14 @@ body { margin: 0; }
 }
 .asta-header__chevron { margin-right: 8px; }
 .asta-header__button[aria-expanded="true"] .asta-header__chevron { transform: rotate(180deg); }
-.asta-header__search-toggle { border-left: 1px solid #ffffff80; padding-right: 15px; padding-left: 20px; }
-.asta-header__search-toggle .asta-search-icon { width: 22px; height: 22px; }
-.asta-header__close { display: none; width: 22px; font-size: 32px; line-height: 22px; font-weight: normal; text-align: center; }
+.asta-header__search-toggle::before { content: ""; position: absolute; left: 0; top: calc(50% - 12px); height: 24px; border-left: 1px solid #ffffff80; }
+.asta-header__search-toggle .asta-search-icon { width: 24px; height: 24px; }
+.asta-header__close { display: none; width: 24px; font-size: 32px; line-height: 24px; font-weight: normal; text-align: center; }
 .asta-header__search-toggle[aria-expanded="true"] {
   .asta-search-icon { display: none; }
   .asta-header__close { display: block; }
 }
-.asta-header__drawer { order: 1; width: 100%; box-sizing: border-box; background: #f3f8fb; color: #0b0c0c; padding: 35px 0 20px; }
+.asta-header__drawer { grid-column: 1 / -1; width: 100%; box-sizing: border-box; background: #f3f8fb; color: #0b0c0c; padding: 35px 0 20px; }
 .asta-menu { display: grid; grid-template-columns: 2fr 1fr; gap: 50px; }
 .asta-menu__heading { padding-bottom: 15px; border-bottom: 1px solid #b1cfe5; }
 .asta-menu__links { display: grid; grid-template-columns: 1fr 1fr; column-gap: 30px; }
@@ -59,6 +64,13 @@ body { margin: 0; }
   &:focus-visible { outline: 3px solid #ffdd00; outline-offset: 0; box-shadow: inset 0 0 0 3px #0b0c0c; }
 }
 .asta-search__submit svg { width: 24px; height: 24px; }
+.asta-masthead { background: #1d70b8; color: #fff; padding: 30px 0 60px; }
+.asta-masthead__title { max-width: 630px; color: inherit; font-size: 64px; line-height: 1.15; letter-spacing: -1.5px; margin: 0 0 40px; }
+.asta-search--masthead {
+  padding-bottom: 0;
+  .govuk-label { color: inherit; margin-bottom: 15px; }
+  .asta-search__input { border-color: #fff; }
+}
 .asta-results { margin-top: 30px; }
 .asta-results li { margin-bottom: 25px; }
 .asta-results p { margin-top: 5px; }
@@ -73,17 +85,21 @@ body { margin: 0; }
 .asta-footer__build { font-size: 14px; }
 
 @media (max-width: 40.0525em) {
-  .asta-header__nav, .asta-header__tools { min-height: 55px; }
-  .asta-header__bar::before { top: 55px; }
-  .asta-brand { padding: 7.5px 0; }
-  .asta-brand__logo { width: 80px; height: 40px; }
-  .asta-header__button { padding: 15px 12px; }
+  .asta-header { --asta-header-height: 88px; --asta-logo-width: 136px; --asta-logo-height: 68px; }
+  .asta-header__nav { column-gap: 16px; }
+  .asta-brand { padding: 10px 0; }
+  .asta-header__button { font-size: 16px; padding: 15px 12px; }
+  .asta-header__search-toggle .asta-search-icon { width: 22px; height: 22px; }
+  .asta-header__close { width: 22px; }
   .asta-menu { grid-template-columns: 1fr; gap: 40px; }
+  .asta-masthead { padding: 25px 0 40px; }
+  .asta-masthead__title { font-size: 40px; letter-spacing: -.7px; margin-bottom: 30px; }
   .asta-main { padding-top: 30px; padding-bottom: 40px; }
   .asta-footer__contacts { grid-template-columns: 1fr; gap: 25px; }
 }
 @media (max-width: 360px) {
   .asta-menu__links { grid-template-columns: 1fr; gap: 0; }
+  .asta-masthead__title { font-size: 35px; }
 }
 @media (forced-colors: active) {
   .asta-header { border-bottom: 1px solid; }
@@ -95,6 +111,8 @@ body { margin: 0; }
   .asta-header { background: #fff; color: #000; border-bottom: 2pt solid; }
   .asta-brand, .asta-brand:link, .asta-brand:visited { color: #000; }
   .asta-brand__logo { filter: brightness(0); }
+  .asta-masthead { background: #fff; color: #000; padding: 20px 0; }
+  .asta-masthead__title { font-size: 32pt; }
   .asta-header__tools, .asta-header__drawer, .asta-header__bar::before,
   .asta-footer__contacts, .asta-footer__build, .asta-search { display: none !important; }
 }

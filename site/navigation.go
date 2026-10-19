@@ -10,11 +10,9 @@ func headerMenu() []view.NavigationGroup {
 			{Title: "Semesterticket", URL: "https://www.asta-wh.de/semesterticket/"},
 			{Title: "Beratung", URL: "https://www.asta-wh.de/beratung/"},
 			{Title: "Finanzielle Unterstützung", URL: "https://www.asta-wh.de/asta-darlehen/"},
-			{Title: "Jobs", URL: "https://jobs.asta-wh.de/"},
-			{Title: "Wohnen", URL: "http://wohnen.asta-wh.de/"},
 			{Title: "Sport und Freizeit", URL: "https://www.asta-wh.de/fitnesskeller/"},
 			{Title: "Skripteportal", URL: "https://skripte.asta-wh.de/"},
-			{Title: "AStA-Shop", URL: "https://www.asta-wh.de/shop/"},
+			{Title: "Shop", URL: "https://www.asta-wh.de/shop/"},
 		}},
 		{Title: "Dein AStA", Links: []view.NavigationLink{
 			{Title: "Team und Vertretung", URL: "https://www.asta-wh.de/team/"},
@@ -30,10 +28,8 @@ func navigation() []view.NavigationGroup {
 	return []view.NavigationGroup{
 		{Title: "Angebote und Informationen", Links: []view.NavigationLink{
 			{Title: "Fitnesskeller", URL: "https://www.asta-wh.de/fitnesskeller/", Description: "Sport und Training an der Hochschule"},
-			{Title: "Jobbörse", URL: "https://jobs.asta-wh.de/", Description: "Jobs für Studierende"},
-			{Title: "Wohnungsbörse", URL: "http://wohnen.asta-wh.de", Description: "Wohnungen und WG-Zimmer finden"},
 			{Title: "Skripteportal", URL: "https://skripte.asta-wh.de", Description: "Skripte und Materialien für dein Studium"},
-			{Title: "AStA-Shop", URL: "https://www.asta-wh.de/shop/", Description: "Angebot und Öffnungszeiten des Shops"},
+			{Title: "Shop", URL: "https://www.asta-wh.de/shop/", Description: "Angebot und Öffnungszeiten des Shops"},
 			{Title: "AStA-Beratung", URL: "https://www.asta-wh.de/beratung/", Description: "Unterstützung bei Fragen und Problemen"},
 			{Title: "AStA-Darlehen", URL: "https://www.asta-wh.de/asta-darlehen/", Description: "Finanzielle Unterstützung im Studium"},
 			{Title: "Rechtsberatung", URL: "https://www.asta-wh.de/rechtsberatung/", Description: "Beratung bei rechtlichen Fragen"},
