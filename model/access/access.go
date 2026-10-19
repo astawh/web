@@ -269,13 +269,13 @@ func (s *Service) SetUserAccess(ctx context.Context, actor, user string, grants 
 // Form access requires both a functional permission and an explicit membership.
 // No role, including administrator, bypasses the responsibility boundary.
 func (s *Service) CanAccessForm(ctx context.Context, user, form string, write bool) error {
-	if err := Require(ctx, s.db, user, ProcessApplications); err != nil {
-		return err
-	}
 	var allowed bool
 	err := s.db.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM form_responsibilities f
  JOIN user_memberships m ON m.organization_unit_id=f.organization_unit_id
- JOIN forms ON forms.id=f.form_id WHERE m.user_id=? AND f.form_id=? AND forms.active=1
+ JOIN forms ON forms.id=f.form_id JOIN users u ON u.id=m.user_id
+ WHERE u.id=? AND u.disabled_at IS NULL AND f.form_id=? AND forms.active=1
+ AND EXISTS(SELECT 1 FROM user_roles ur JOIN role_permissions rp ON rp.role_id=ur.role_id
+ WHERE ur.user_id=u.id AND rp.permission_id='applications.process')
  AND (?=0 OR m.access_level='manage'))`, user, form, write).Scan(&allowed)
 	if err != nil {
 		return err

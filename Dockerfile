@@ -12,10 +12,14 @@ ARG VERSION=dev
 ARG REVISION
 RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -trimpath \
     -ldflags="-s -w -X main.Version=${VERSION} -X main.Revision=${REVISION}" -o /out/web .
+RUN mkdir -p /out/data
 
 FROM scratch
 COPY --from=builder /out/web /web
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY --from=builder --chown=1001:1001 /out/data /data
 USER 1001:1001
+ENV DATABASE_PATH=/data/sqlite.db
 EXPOSE 8080
 ENTRYPOINT ["/web"]
 CMD ["-addr", "0.0.0.0:8080"]

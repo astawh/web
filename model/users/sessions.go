@@ -82,6 +82,17 @@ func (s *Service) Logout(ctx context.Context, token string) error {
 }
 
 func (s *Service) Cleanup(ctx context.Context) error {
-	_, err := s.db.ExecContext(ctx, `DELETE FROM sessions WHERE expires_at<=?`, time.Now().Unix())
-	return err
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+	now := time.Now().Unix()
+	if _, err := tx.ExecContext(ctx, `DELETE FROM sessions WHERE expires_at<=?`, now); err != nil {
+		return err
+	}
+	if _, err := tx.ExecContext(ctx, `DELETE FROM mail_outbox WHERE invitation_id IN (SELECT id FROM invitations WHERE expires_at<=? OR accepted_at IS NOT NULL OR revoked_at IS NOT NULL)`, now); err != nil {
+		return err
+	}
+	return tx.Commit()
 }

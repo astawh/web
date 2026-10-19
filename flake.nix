@@ -22,7 +22,7 @@
             pname = "asta-web";
             version = "0.1.0";
             src = self;
-            vendorHash = null;
+            vendorHash = "sha256-Pgi13UQT5JyTqTzImjH/M9wuDX2per4AfRJd7+jdp38=";
             env.CGO_ENABLED = "0";
             ldflags = [ "-s" "-w" "-X main.Version=0.1.0" "-X main.Revision=${self.rev or "dirty"}" ];
           };

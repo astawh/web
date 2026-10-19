@@ -10,10 +10,13 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
 	"github.com/astawh/web/internal/config"
+	"github.com/astawh/web/internal/database"
+	"github.com/astawh/web/model/users"
 )
 
 // Version and Revision are injected at build time.
@@ -30,9 +33,15 @@ func main() {
 }
 
 func run(ctx context.Context, args []string) error {
+	cfg := config.New()
 	flags := flag.NewFlagSet("web", flag.ContinueOnError)
 	addr := flags.String("addr", "127.0.0.1:8090", "HTTP listen address")
 	version := flags.Bool("version", false, "Print application version")
+	path := flags.String("database", cfg.Database, "Writable SQLite database path")
+	bootstrap := flags.String("bootstrap-admin", "", "Create the first administrator with this email and exit")
+	name := flags.String("bootstrap-name", "Administrator", "First administrator name")
+	passwordFile := flags.String("bootstrap-password-file", "", "Private file containing the first administrator password")
+	migrateOnly := flags.Bool("migrate-only", false, "Apply database migrations and exit")
 	if err := flags.Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
 			return nil
@@ -46,11 +55,37 @@ func run(ctx context.Context, args []string) error {
 		fmt.Println(Version)
 		return nil
 	}
-	app, err := newApplication(ctx, config.New())
+	cfg.Database = *path
+	if *bootstrap != "" || *migrateOnly {
+		db, err := database.Open(ctx, cfg.Database)
+		if err != nil {
+			return err
+		}
+		defer db.Close()
+		if *bootstrap != "" {
+			info, err := os.Stat(*passwordFile)
+			if err != nil {
+				return errors.New("provide a private password file with -bootstrap-password-file")
+			}
+			if !info.Mode().IsRegular() || info.Mode().Perm()&0077 != 0 || info.Size() > 1024 {
+				return errors.New("password file must be regular, private (0600) and at most 1024 bytes")
+			}
+			password, err := os.ReadFile(*passwordFile)
+			if err != nil {
+				return err
+			}
+			if _, err := users.New(db).Bootstrap(ctx, *name, *bootstrap, strings.TrimRight(string(password), "\r\n")); err != nil {
+				return err
+			}
+			log.Print("First administrator created")
+		}
+		return nil
+	}
+	app, err := newApplication(ctx, cfg)
 	if err != nil {
 		return err
 	}
-	defer app.db.Close()
+	defer app.Close()
 	server := &http.Server{
 		Addr: *addr, Handler: app.handler, ReadHeaderTimeout: 5 * time.Second,
 		ReadTimeout: 30 * time.Second, WriteTimeout: 30 * time.Second, IdleTimeout: 120 * time.Second,
