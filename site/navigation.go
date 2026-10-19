@@ -27,19 +27,26 @@ func footerMenu() []view.NavigationGroup {
 	return []view.NavigationGroup{
 		{Title: "Angebote und Informationen", Links: []view.NavigationLink{
 			{Title: "Semesterticket", URL: "https://www.asta-wh.de/semesterticket/"},
-			{Title: "Beratung", URL: "https://www.asta-wh.de/beratung/"},
+			{Title: "Beratung im Studium", URL: "https://www.asta-wh.de/beratung/"},
 			{Title: "Rechtsberatung", URL: "https://www.asta-wh.de/rechtsberatung/"},
 			{Title: "Finanzielle Unterstützung", URL: "https://www.asta-wh.de/asta-darlehen/"},
-			{Title: "Sportkeller", URL: "https://www.asta-wh.de/fitnesskeller/"},
+			{Title: "Sport und Fitness", URL: "https://www.asta-wh.de/fitnesskeller/"},
 			{Title: "Shop", URL: "https://www.asta-wh.de/shop/"},
 			{Title: "Skripteportal", URL: "https://skripte.asta-wh.de/"},
-			{Title: "Formulare und Downloads", URL: "/formulare"},
-		}},
-		{Title: "Dein AStA", Links: []view.NavigationLink{
-			{Title: "Team und Sprechzeiten", URL: "https://www.asta-wh.de/team/"},
-			{Title: "Aktuelles", URL: "https://www.asta-wh.de/"},
+			{Title: "Schließfächer", URL: "https://www.asta-wh.de/schliessfaecher/"},
+			{Title: "Vergünstigungen und Kooperationen", URL: "https://www.asta-wh.de/kooperationen/"},
 			{Title: "Hochschulgruppen", URL: "https://www.asta-wh.de/hochschulgruppen/"},
+			{Title: "Formulare und Downloads", URL: "/formulare"},
+			{Title: "Alle Themen", URL: "/navigation"},
+		}},
+		{Title: "Über den AStA", Links: []view.NavigationLink{
+			{Title: "Team und Referate", URL: "https://www.asta-wh.de/team/"},
+			{Title: "Aktuelles", URL: "https://www.asta-wh.de/"},
+			// Planned destinations for the public information architecture.
+			{Title: "Beschlüsse und Protokolle", URL: "/asta/protokolle"},
+			{Title: "Finanzen und Transparenz", URL: "/asta/transparenz"},
 			{Title: "Studierendenparlament", URL: "https://www.stupa-wh.de/"},
+			{Title: "Mitmachen", URL: "/asta/mitmachen"},
 		}},
 	}
 }

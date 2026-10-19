@@ -106,15 +106,13 @@ body { margin: 0; }
 .asta-browse__card-link::after { content: ""; position: absolute; inset: 0; }
 .asta-results li { margin-bottom: 25px; }
 .asta-results p { margin-top: 5px; }
-.asta-footer__contacts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px; }
-.asta-footer__contacts address { font-style: normal; }
-.asta-footer__identity { border-top: 1px solid #8eb8dc; padding-top: 30px; margin-bottom: 30px; }
+.asta-footer .govuk-footer__list { padding-bottom: 40px; }
+.asta-footer .govuk-footer__list-item { width: 99%; }
 .asta-footer__brand {
-  display: inline-block; margin-bottom: 25px; line-height: 0;
+  display: inline-block; line-height: 0;
   img { display: block; width: 160px; height: 80px; }
   &:focus-visible { outline: 3px solid #ffdd00; outline-offset: 3px; box-shadow: 0 6px #0b0c0c; }
 }
-.asta-footer__build { font-size: 14px; }
 .asta-footer__signature { margin-left: auto; text-align: right; }
 
 @media (max-width: 40.0525em) {
@@ -136,7 +134,6 @@ body { margin: 0; }
   .asta-browse__actions { margin-bottom: 20px; }
   .asta-browse__featured .asta-action-icon { flex-basis: 28px; width: 28px; height: 28px; }
   .asta-main { padding-top: 30px; padding-bottom: 40px; }
-  .asta-footer__contacts { grid-template-columns: 1fr; gap: 25px; }
 }
 @media (max-width: 360px) {
   .asta-menu__links { grid-template-columns: 1fr; gap: 0; }
@@ -157,6 +154,6 @@ body { margin: 0; }
   .asta-action-icon { display: none; }
   .asta-browse-header { background: #fff; color: #000; }
   .asta-header__tools, .asta-header__drawer, .asta-header__bar::before,
-  .asta-footer__contacts, .asta-footer__build, .asta-footer .govuk-footer__navigation,
+  .asta-footer .govuk-footer__navigation,
   .asta-footer .govuk-footer__section-break, .asta-search { display: none !important; }
 }

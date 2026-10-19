@@ -12,38 +12,19 @@
       {{ end }}
     </nav>
     <hr class="govuk-footer__section-break">
-    <h2 class="govuk-visually-hidden">Standorte und Kontakt</h2>
-    <div class="asta-footer__contacts">
-      <section aria-labelledby="footer-ge">
-        <h3 id="footer-ge" class="govuk-footer__heading govuk-heading-m">Gelsenkirchen</h3>
-        <address class="govuk-body">Neidenburger Straße 43<br>45897 Gelsenkirchen<br>Raum B2.1.29</address>
-        <p class="govuk-body"><a class="govuk-footer__link" href="tel:+492099596124">0209 9596-124</a></p>
-      </section>
-      <section aria-labelledby="footer-re">
-        <h3 id="footer-re" class="govuk-footer__heading govuk-heading-m">Recklinghausen</h3>
-        <address class="govuk-body">August-Schmidt-Ring 10<br>45665 Recklinghausen<br>Raum B7.1.305</address>
-        <p class="govuk-body"><a class="govuk-footer__link" href="tel:+492361915429">02361 915-429</a></p>
-      </section>
-      <section aria-labelledby="footer-boh">
-        <h3 id="footer-boh" class="govuk-footer__heading govuk-heading-m">Bocholt</h3>
-        <address class="govuk-body">Münsterstraße 265<br>46397 Bocholt<br>Raum A2.1.03</address>
-      </section>
-    </div>
-    <div class="asta-footer__identity">
-      <p class="govuk-body govuk-!-margin-bottom-0">Allgemeiner Studierendenausschuss der Westfälischen Hochschule</p>
-    </div>
     <div class="govuk-footer__meta">
       <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+        <h2 class="govuk-visually-hidden">Hilfe und rechtliche Informationen</h2>
         <ul class="govuk-footer__inline-list">
-          <li class="govuk-footer__inline-list-item"><a class="govuk-footer__link" href="https://www.asta-wh.de/impressum/">Impressum</a></li>
+          <li class="govuk-footer__inline-list-item"><a class="govuk-footer__link" href="/hilfe">Hilfe</a></li>
           <li class="govuk-footer__inline-list-item"><a class="govuk-footer__link" href="https://www.asta-wh.de/datenschutz/">Datenschutz</a></li>
+          <li class="govuk-footer__inline-list-item"><a class="govuk-footer__link" href="/barrierefreiheit">Barrierefreiheit</a></li>
           <li class="govuk-footer__inline-list-item"><a class="govuk-footer__link" href="https://www.asta-wh.de/kontakt/">Kontakt</a></li>
+          <li class="govuk-footer__inline-list-item"><a class="govuk-footer__link" href="https://www.asta-wh.de/impressum/">Impressum</a></li>
         </ul>
-        <p class="govuk-footer__licence-description">Für Studierende in Gelsenkirchen, Recklinghausen und Bocholt.</p>
       </div>
       <div class="govuk-footer__meta-item asta-footer__signature">
         <a class="asta-footer__brand" href="/" aria-label="{{ .SiteName }} – Startseite"><img src="/assets/logo.svg" width="160" height="80" alt="{{ .SiteName }}"></a>
-        <div class="asta-footer__build"><a class="govuk-footer__link" href="https://github.com/astawh/web">Version {{ .BuildVersion }}{{ with .ShortRevision }} ({{ . }}){{ end }}</a></div>
       </div>
     </div>
   </div>

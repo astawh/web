@@ -24,11 +24,20 @@ in `site/forms.go`; presentation stays in `view/templates/forms.html`.
 
 The shared footer follows GOV.UK's footer navigation: a
 two-thirds/two-column “Angebote und Informationen” group and a one-third
-“Dein AStA” group. Curated destinations live in `site/navigation.go`.
+“Über den AStA” group. Curated destinations live in `site/navigation.go`.
 The official footer component supplies the pale background, blue top border,
-underlined headings, responsive columns and separator. Campus contact details
-follow the navigation; organisation identity and legal links finish the footer.
-The AStA logo sits at the bottom right with the build version beneath it.
+underlined headings, responsive columns and separator. Twelve service/topic
+links help students find support and practical offers; six institutional links
+cover people, news, decisions, transparency, representation and participation.
+Support/legal links sit below one divider, with the AStA
+logo at the bottom right. The footer contains no campus address blocks.
+Spacing matches the live GOV.UK footer: 40px below each navigation list on
+desktop and mobile, 30px below heading rules, and 50px (30px mobile) between
+the separator and support row. The logo replaces GOV.UK's copyright emblem.
+
+The links to `/asta/protokolle`, `/asta/transparenz`, `/asta/mitmachen`, `/hilfe`
+and `/barrierefreiheit` are provisional navigation destinations; their pages
+are not implemented yet.
 
 ## GOV.UK components
 

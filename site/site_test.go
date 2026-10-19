@@ -1,7 +1,6 @@
 package site_test
 
 import (
-	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
@@ -58,9 +57,6 @@ func TestPublicRoutes(t *testing.T) {
 			}
 			if w.Header().Get("X-Content-Type-Options") != "nosniff" {
 				t.Fatal("missing response policy")
-			}
-			if tc.path == "/" && tc.method == http.MethodGet && !strings.Contains(w.Body.String(), "Version v0.1.0 (1234567)") {
-				t.Fatal("missing build metadata")
 			}
 		})
 	}
