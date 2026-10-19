@@ -15,6 +15,7 @@ func headerMenu() []view.NavigationGroup {
 			{Title: "Shop", URL: "https://www.asta-wh.de/shop/"},
 		}},
 		{Title: "Dein AStA", Links: []view.NavigationLink{
+			{Title: "Hochschulpolitik und Gremien", URL: "/hochschulpolitik"},
 			{Title: "So funktioniert der AStA", URL: "/asta/so-funktioniert-der-asta"},
 			{Title: "Team und Vertretung", URL: "https://www.asta-wh.de/team/"},
 			{Title: "Aktuelles", URL: "https://www.asta-wh.de/"},
@@ -41,6 +42,7 @@ func footerMenu() []view.NavigationGroup {
 			{Title: "Alle Themen", URL: "/navigation"},
 		}},
 		{Title: "Über den AStA", Links: []view.NavigationLink{
+			{Title: "Hochschulpolitik und Gremien", URL: "/hochschulpolitik"},
 			{Title: "Team und Referate", URL: "https://www.asta-wh.de/team/"},
 			{Title: "Aktuelles", URL: "https://www.asta-wh.de/"},
 			// Planned destinations for the public information architecture.
@@ -70,6 +72,7 @@ func navigation() []view.NavigationGroup {
 			{Title: "Formulare und Downloads", URL: "/formulare", Description: "Anmeldung und Kündigung für den Sportkeller, Veranstaltungsanträge und Checklisten"},
 		}},
 		{Title: "Dein AStA", Links: []view.NavigationLink{
+			{Title: "Hochschulpolitik und Gremien", URL: "/hochschulpolitik", Description: "Studentische Selbstverwaltung, AStA und Studierendenparlament"},
 			{Title: "So funktioniert der AStA", URL: "/asta/so-funktioniert-der-asta", Description: "Aufgaben, Vorstand und Referate, Studierendenparlament, Finanzierung und Mitmachen"},
 			{Title: "Team und Sprechzeiten", URL: "https://www.asta-wh.de/team/", Description: "Deine Ansprechpersonen und ihre Sprechzeiten"},
 			{Title: "Kontakt", URL: "https://www.asta-wh.de/kontakt/", Description: "So erreichst du uns"},

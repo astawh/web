@@ -13,6 +13,8 @@ type Page struct {
 	Featured                    []NavigationLink
 	Introduction                string
 	Contents                    []NavigationLink
+	Breadcrumbs                 []NavigationLink
+	Topics                      []NavigationLink
 }
 
 type NavigationLink struct{ Title, URL, Description string }

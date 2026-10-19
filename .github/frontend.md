@@ -23,13 +23,18 @@ registration document linked from the fitness page. The catalogue is defined
 in `site/forms.go`; presentation stays in `view/templates/forms.html`.
 
 `/asta/so-funktioniert-der-asta` establishes the long-form content-page pattern
-from GOV.UK's “How government works”: white background, homepage breadcrumb,
+from GOV.UK's “How government works”: white background, hierarchical breadcrumbs,
 48px desktop title, 24px lead paragraph, full-width divider, dashed contents
 links and a two-thirds-width reading column. Sections use 36px desktop headings
 and 60px spacing (40px mobile). `content.html` contains the shared header and
 contents partials; `asta.html` contains the editorial body. The route and
 presentation data live in `site/content.go`. No JavaScript is required to read
 the page or navigate its contents.
+
+The breadcrumb is “Startseite → Hochschulpolitik → Gremien”. Its parent pages
+at `/hochschulpolitik` and `/hochschulpolitik/gremien` use the browse layout
+in `browse.html`, with linked topics and descriptions. The content page keeps
+its existing URL; the breadcrumb expresses the editorial hierarchy.
 
 Editorial sources checked on 2026-10-19:
 

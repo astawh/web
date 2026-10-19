@@ -1,0 +1,18 @@
+{{ define "browse-page" }}
+<div class="asta-browse-header">
+  <div class="govuk-width-container">
+    {{ template "breadcrumbs" . }}
+    <h1 class="govuk-heading-xl">{{ .Title }}</h1>
+    <p class="govuk-body-l">{{ .Introduction }}</p>
+  </div>
+</div>
+<div class="govuk-width-container asta-browse">
+  <h2 class="govuk-heading-m asta-browse__heading">Themen</h2>
+  <ul class="govuk-list asta-browse__cards">
+    {{ range .Topics }}<li>
+      <h3 class="govuk-heading-s"><a class="govuk-link asta-browse__card-link" href="{{ .URL }}">{{ .Title }}</a></h3>
+      <p class="govuk-body">{{ .Description }}</p>
+    </li>{{ end }}
+  </ul>
+</div>
+{{ end }}

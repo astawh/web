@@ -18,6 +18,7 @@
       {{ else if eq .Section "search" }}<div class="govuk-width-container asta-main">{{ template "search-page" . }}</div>
       {{ else if eq .Section "forms" }}{{ template "forms-page" . }}
       {{ else if eq .Section "asta" }}{{ template "asta-page" . }}
+      {{ else if eq .Section "browse" }}{{ template "browse-page" . }}
       {{ else }}{{ template "landing" . }}{{ end }}
     </main>
     {{ template "footer" . }}
