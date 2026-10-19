@@ -1,0 +1,13 @@
+/result
+/result-*
+/web
+/data/
+/.dev-data/
+/.env
+/.direnv/
+/coverage.out
+/coverage.html
+*.db
+*.db-shm
+*.db-wal
+.DS_Store

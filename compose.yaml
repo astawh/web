@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    ports:
+      - "127.0.0.1:8090:8080"
+    environment:
+      SITE_NAME: AStA WH
+    read_only: true
+    cap_drop:
+      - ALL

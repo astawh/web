@@ -1,0 +1,17 @@
+{{ define "layout" }}<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ .Title }} – {{ .SiteName }}</title>
+    <link rel="stylesheet" href="/assets/site.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Zum Hauptinhalt</a>
+    <header><div class="container"><a href="/">{{ .SiteName }}</a></div></header>
+    <main class="container" id="main-content" tabindex="-1">{{ template "home" . }}</main>
+    <footer class="container">
+      <a href="https://github.com/astawh/web">Version {{ .BuildVersion }}{{ with .ShortRevision }} ({{ . }}){{ end }}</a>
+    </footer>
+  </body>
+</html>{{ end }}

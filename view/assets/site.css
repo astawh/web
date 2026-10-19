@@ -1,0 +1,11 @@
+body { margin: 0; color: #0b0c0c; background: #fff; font: 19px/1.5 Arial, sans-serif; }
+.container { max-width: 960px; margin: 0 auto; padding: 20px; }
+header { border-bottom: 4px solid #1d70b8; }
+header a { color: #0b0c0c; font-size: 30px; font-weight: bold; text-decoration: none; }
+main { min-height: 50vh; }
+h1 { font-size: 2.5rem; line-height: 1.2; }
+a { color: #005ea5; text-underline-offset: .15em; }
+a:focus { color: #0b0c0c; background: #ffdd00; outline: 3px solid #ffdd00; }
+footer { border-top: 1px solid #b1b4b6; font-size: 16px; text-align: right; }
+.skip-link { position: absolute; left: -10000px; }
+.skip-link:focus { position: static; display: inline-block; margin: 15px; }

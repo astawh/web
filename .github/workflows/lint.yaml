@@ -1,0 +1,26 @@
+name: ci:lint
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  title:
+    name: lint:commit
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Validate Conventional Commit title
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          export LC_ALL=C
+          pattern='^(feat|fix|docs|refactor|test|perf|build|ci|chore|style|revert)(\([a-z0-9]+\))?!?: [a-z0-9 ./@_+-]{1,50}$'
+          if [[ ! "$PR_TITLE" =~ $pattern ]]; then
+            echo 'Use type: description or type(scope): description, with an optional ! before the colon.'
+            echo 'Descriptions must be 1 to 50 lowercase characters using letters, digits, spaces or . / @ _ + -.'
+            exit 1
+          fi
