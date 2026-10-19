@@ -31,6 +31,7 @@ func (s *Service) DeliverInvitations(ctx context.Context, sender InvitationSende
 		if err := ctx.Err(); err != nil {
 			return err
 		}
+		now = time.Now().Unix()
 		lease := secret.New()
 		var id, invitation string
 		var m InvitationMail

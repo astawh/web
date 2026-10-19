@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"sync"
 	"testing"
 	"time"
 
@@ -204,5 +205,97 @@ func TestInvitationMailRetriesAndRechecksEligibility(t *testing.T) {
 	}
 	if len(mail.sent) != 1 {
 		t.Fatal("disabled inviter's message delivered")
+	}
+}
+
+func TestFailedOutboxWriteRollsBackInvitation(t *testing.T) {
+	ctx := context.Background()
+	db := testdb.Open(t)
+	s := users.New(db)
+	testdb.User(t, db, "admin", "administrator")
+	if _, err := db.Exec(`CREATE TRIGGER fail_mail BEFORE INSERT ON mail_outbox BEGIN SELECT RAISE(ABORT,'queue unavailable'); END`); err != nil {
+		t.Fatal(err)
+	}
+	_, err := s.Invite(ctx, "admin", users.InvitationInput{Name: "Anna", Email: "anna@example.org", Grants: access.Grants{Roles: []string{"application_handler"}}})
+	if err == nil {
+		t.Fatal("invitation succeeded without queued mail")
+	}
+	for _, table := range []string{"invitations", "invitation_roles", "invitation_memberships", "access_events"} {
+		var count int
+		if err := db.QueryRow(`SELECT count(*) FROM ` + table).Scan(&count); err != nil || count != 0 {
+			t.Fatalf("partial state in %s: %d %v", table, count, err)
+		}
+	}
+}
+
+func TestConcurrentInvitationAcceptance(t *testing.T) {
+	ctx := context.Background()
+	db := testdb.Open(t)
+	s := users.New(db)
+	testdb.User(t, db, "admin", "administrator")
+	id, err := s.Invite(ctx, "admin", users.InvitationInput{Name: "Anna", Email: "anna@example.org"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	token := pendingToken(t, db, id)
+	results := make(chan error, 2)
+	var wg sync.WaitGroup
+	for range 2 {
+		wg.Go(func() { _, err := s.AcceptInvitation(ctx, token, "a sufficiently long password"); results <- err })
+	}
+	wg.Wait()
+	close(results)
+	success := 0
+	for err := range results {
+		if err == nil {
+			success++
+		} else if !errors.Is(err, users.ErrInvitation) {
+			t.Fatalf("unexpected acceptance failure: %v", err)
+		}
+	}
+	if success != 1 {
+		t.Fatalf("successful acceptances: %d", success)
+	}
+	var count int
+	if err := db.QueryRow(`SELECT count(*) FROM users WHERE email='anna@example.org'`).Scan(&count); err != nil || count != 1 {
+		t.Fatalf("duplicate users: %d %v", count, err)
+	}
+}
+
+type senderFunc func(context.Context, users.InvitationMail) error
+
+func (f senderFunc) SendInvitation(ctx context.Context, m users.InvitationMail) error {
+	return f(ctx, m)
+}
+
+func TestMailWorkersDoNotShareALease(t *testing.T) {
+	ctx := context.Background()
+	db := testdb.Open(t)
+	s := users.New(db)
+	testdb.User(t, db, "admin", "administrator")
+	if _, err := s.Invite(ctx, "admin", users.InvitationInput{Name: "Anna", Email: "anna@example.org"}); err != nil {
+		t.Fatal(err)
+	}
+	started, release, done := make(chan struct{}), make(chan struct{}), make(chan error, 1)
+	go func() {
+		done <- s.DeliverInvitations(ctx, senderFunc(func(context.Context, users.InvitationMail) error { close(started); <-release; return nil }))
+	}()
+	select {
+	case <-started:
+	case <-time.After(5 * time.Second):
+		close(release)
+		t.Fatal("first worker did not claim mail")
+	}
+	second := &sender{}
+	err := s.DeliverInvitations(ctx, second)
+	close(release)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := <-done; err != nil {
+		t.Fatal(err)
+	}
+	if len(second.sent) != 0 {
+		t.Fatal("second worker sent leased invitation")
 	}
 }

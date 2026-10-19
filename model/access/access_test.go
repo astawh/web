@@ -52,6 +52,21 @@ func TestExplicitOrganizationalAccess(t *testing.T) {
 	if err := s.CanAccessForm(ctx, "handler", form, true); err != nil {
 		t.Fatal(err)
 	}
+	if err := s.SetFormResponsibilities(ctx, "admin", form, []string{board}, true); err != nil {
+		t.Fatal(err)
+	}
+	if err := s.CanAccessForm(ctx, "handler", form, false); !errors.Is(err, access.ErrForbidden) {
+		t.Fatalf("old form responsibility retained access: %v", err)
+	}
+	if err := s.SetFormResponsibilities(ctx, "admin", form, []string{finance}, false); err != nil {
+		t.Fatal(err)
+	}
+	if err := s.CanAccessForm(ctx, "handler", form, false); !errors.Is(err, access.ErrForbidden) {
+		t.Fatalf("inactive form accessible: %v", err)
+	}
+	if err := s.SetFormResponsibilities(ctx, "admin", form, []string{finance}, true); err != nil {
+		t.Fatal(err)
+	}
 	if err := s.CanAccessForm(ctx, "admin", form, false); !errors.Is(err, access.ErrForbidden) {
 		t.Fatalf("admin bypassed form access: %v", err)
 	}

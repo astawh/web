@@ -6,6 +6,7 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
+	"mime"
 	"net"
 	"net/mail"
 	"net/smtp"
@@ -97,7 +98,7 @@ func (s *Sender) Send(ctx context.Context, to, subject, body string) error {
 	if err != nil {
 		return err
 	}
-	message := fmt.Sprintf("From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%s\r\n", s.cfg.From, to, subject, time.Now().Format(time.RFC1123Z), strings.ReplaceAll(strings.ReplaceAll(body, "\r\n", "\n"), "\n", "\r\n"))
+	message := fmt.Sprintf("From: %s\r\nTo: %s\r\nSubject: %s\r\nDate: %s\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n%s\r\n", s.cfg.From, to, mime.QEncoding.Encode("utf-8", subject), time.Now().Format(time.RFC1123Z), strings.ReplaceAll(strings.ReplaceAll(body, "\r\n", "\n"), "\n", "\r\n"))
 	if _, err := w.Write([]byte(message)); err != nil {
 		_ = w.Close()
 		return err
